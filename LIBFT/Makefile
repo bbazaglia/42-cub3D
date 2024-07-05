@@ -6,7 +6,7 @@
 #    By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/27 10:32:51 by bbazagli          #+#    #+#              #
-#    Updated: 2024/02/05 14:53:29 by bbazagli         ###   ########.fr        #
+#    Updated: 2024/07/05 13:36:18 by bbazagli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRC = ft_putnbr_fd.c \
 	ft_striteri.c \
 	ft_strmapi.c \
 	ft_itoa.c \
+	ft_isspace.c \
+	ft_split_space.c \
 	ft_split.c \
 	ft_strlen.c \
 	ft_substr.c \

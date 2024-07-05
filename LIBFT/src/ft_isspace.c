@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 10:59:50 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/05 10:33:48 by bbazagli         ###   ########.fr       */
+/*   Created: 2024/07/05 13:35:49 by bbazagli          #+#    #+#             */
+/*   Updated: 2024/07/05 13:36:03 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-// to do: correct parsing, the file will contain more scene_data than just the map
-
-int main(int argc, char **argv)
+int	ft_isspace(char c)
 {
-    validate_input(argc, argv[1], game);
+	if (c == 32 || c >= 8 && c <= 13)
+		return (1);
+	return (0);
 }

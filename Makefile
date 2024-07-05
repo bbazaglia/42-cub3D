@@ -6,7 +6,7 @@
 #    By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/03 16:17:00 by bbazagli         ###   ########.fr        #
+#    Updated: 2024/07/05 10:16:44 by bbazagli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT = ./LIBFT/libft.a
 
 SRC = main.c \
 	parse.c \
-	validate_map.c \
+	validate_scene.c \
 	game_over.c
 
 OBJ = obj

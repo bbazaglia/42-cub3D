@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:12:59 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/03 16:16:06 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:25:35 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
@@ -36,31 +37,46 @@ typedef struct s_vector
 	double		y;
 }				t_vector;
 
-typedef struct s_map_data
+typedef struct s_scene
 {
 	int			size;
 	int			max_len;
 	int			player;
+	int			north;
+	int			south;
+	int			west;
+	int			east;
+	int			floor;
+	int			ceiling;
 	char		*north_path;
 	char		*south_path;
 	char		*west_path;
 	char		*east_path;
 	uint32_t	c_color;
 	uint32_t	f_color;
-}				t_map_data;
+	bool		scene_error;
+}				t_scene;
 
 typedef struct s_game
 {
 	char		**map;
-	t_map_data	*map_data;
+	char		**scene;
+	t_scene		*scene_data;
 }				t_game;
 
 /*-------------------PARSING AND VALIDATION----------------------------------*/
 void			validate_input(int argc, char *argv, t_game *game);
-void			read_map(t_game *game, char *argv);
+void			read_scene(t_game *game, char *argv);
+int				check_misconfiguration(t_game *game);
+void			check_rgb(t_scene *scene_data, char *line, int *cardinal);
+void			check_cardinal(t_scene *scene_data);
+void			check_path(char *line, int *cardinal);
+void			init_cardinals(t_scene *scene_data);
+void			read_map(t_game *game, int row);
+void			validate_map(t_game *game);
 char			*fill_spaces(char *cur_line, t_game *game);
 void			game_over(char *msg, t_game *game);
-void			get_num_lines(char *argv, t_map_data *map_data);
+void			get_num_lines(char *argv, t_scene *scene_data);
 void			check_format(char *argv);
 void			check_characters(t_game *game, char *line);
 void			check_boundaries(t_game *game, char *line, int row);
@@ -68,5 +84,9 @@ void			check_boundaries(t_game *game, char *line, int row);
 /*-------------------GAME OVER-----------------------------------------------*/
 void			game_over(char *msg, t_game *game);
 void			free_map(char **map);
+
+/*-------------------UTILS---------------------------------------------------*/
+bool			is_empty_line(char *line);
+int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 #endif

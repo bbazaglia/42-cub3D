@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 10:59:50 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/05 10:33:48 by bbazagli         ###   ########.fr       */
+/*   Created: 2024/07/05 17:47:14 by bbazagli          #+#    #+#             */
+/*   Updated: 2024/07/05 17:52:12 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// to do: correct parsing, the file will contain more scene_data than just the map
-
-int main(int argc, char **argv)
+bool	is_empty_line(char *line)
 {
-    validate_input(argc, argv[1], game);
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }

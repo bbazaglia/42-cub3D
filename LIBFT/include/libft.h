@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:32:39 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/02/20 10:25:20 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:36:45 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+int					ft_isspace(char c);
 char				**ft_split(char const *s, char c);
+char				**ft_split_space(char const *s);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strdup(const char *s);
 char				*ft_strchr(const char *s, int c);
