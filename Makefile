@@ -14,11 +14,11 @@ NAME = cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -g3 ./MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 # VPATH = 
 
-INCLUDE = -I./include -I ./LIBFT/include
+INCLUDE = -I./include -I ./MLX42/include -I ./LIBFT/include
 
 LIBFT = ./LIBFT/libft.a
 
@@ -34,11 +34,14 @@ OBJ = obj
 
 SRC_OBJ = $(SRC:%.c=$(OBJ)/%.o)
 
-all: libft $(NAME)
+all: libft libmlx $(NAME)
 
 $(NAME): libft $(SRC_OBJ) 
 	@$(CC) $(CFLAGS) $(SRC_OBJ) $(LIBFT) -o $(NAME) 
 	@echo "Compilation completed: $@"
+
+libmlx:
+	@cmake ./MLX42 -B ./MLX42/build && make -C ./MLX42/build -j4
 
 libft:
 	@make -C ./LIBFT
@@ -50,6 +53,7 @@ $(OBJ)/%.o : %.c
 clean: 
 	@make -C ./LIBFT clean --silent
 	@rm -rf $(OBJ)
+	@rm -rf ./MLX42/build
 	@echo "objects removed" 
 
 fclean: clean
