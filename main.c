@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-// to do: correct parsing, the file will contain more scene_data than just the map
-
 int main(int argc, char **argv)
 {
-    validate_input(argc, argv[1], game);
+    t_game game;
+
+    parse_file(argc, argv[1], &game);
 }

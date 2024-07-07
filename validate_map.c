@@ -12,14 +12,21 @@
 
 #include "cub3d.h"
 
-void	check_format(char *argv)
+void	validate_map(t_game *game)
 {
-	int	size;
+	int	i;
+	size_t len;
 
-	size = ft_strlen(argv) - 1;
-	if (argv[size] != 'b' || argv[size - 1] != 'u' || argv[size - 2] != 'c'
-		|| argv[size - 3] != '.')
-		exit(printf("Error: The file must be .cub format\n"));
+	i = 0;
+	while (game->map[i])
+	{
+		check_boundaries(game, game->map[i], i);
+		check_characters(game, game->map[i]);
+		len = ft_strlen(game->map[i]);
+		if (len < game->width)
+			game->map[i] = fill_spaces(game->map[i], game);
+		i++;
+	}
 }
 
 void	check_characters(t_game *game, char *line)
@@ -32,9 +39,6 @@ void	check_characters(t_game *game, char *line)
 		if (line[i] != ' ' && line[i] != '0' && line[i] != '1' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'E' && line[i] != 'W')
 			game_over("Invalid character found in map\n", game);
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E'
-			|| line[i] == 'W')
-			game->player++;
 	}
 }
 
@@ -59,11 +63,11 @@ void	check_boundaries(t_game *game, char *line, int row)
 // replace empty spaces with spaces
 char	*fill_spaces(char *cur_line, t_game *game)
 {
-	int		i;
+	size_t	i;
 	char	*new_line;
 
 	i = 0;
-	new_line = malloc(sizeof(char) * (game->scene_data->max_len + 1));
+	new_line = malloc(sizeof(char) * (game->width + 1));
 	if (new_line == NULL)
 		game_over("Memory allocation failed\n", game);
 	while (cur_line[i])
@@ -71,7 +75,7 @@ char	*fill_spaces(char *cur_line, t_game *game)
 		new_line[i] = cur_line[i];
 		i++;
 	}
-	while (i < max_len)
+	while (i < game->width)
 	{
 		new_line[i] = ' ';
 		i++;

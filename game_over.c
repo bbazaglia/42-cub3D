@@ -19,31 +19,32 @@ void game_over(char *msg, t_game *game)
     exit_code = EXIT_SUCCESS;
     if (msg)
     {
-        printf(msg);
+        printf("%s\n", msg);
         exit_code = EXIT_FAILURE;
     }
+    if (game->scene)
+		free_data(game->scene);
 	if (game->map)
-		free_map(game->map);
-    
+		free_data(game->map);
 	// add other elements to free
     
 	exit(exit_code);
 }
 
-void	free_map(char **map)
+void	free_data(char **data)
 {
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (data[i])
 	{
-		free(map[i]);
-		map[i] = NULL;
+		free(data[i]);
+		data[i] = NULL;
 		i++;
 	}
-	if (map)
+	if (data)
 	{
-		free(map);
-		map = NULL;
+		free(data);
+		data = NULL;
 	}
 }

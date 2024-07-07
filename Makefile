@@ -25,7 +25,9 @@ LIBFT = ./LIBFT/libft.a
 SRC = main.c \
 	parse.c \
 	validate_scene.c \
+	validate_map.c \
 	utils.c \
+	init.c \
 	game_over.c
 
 OBJ = obj

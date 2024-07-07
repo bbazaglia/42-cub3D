@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_count_words(char const *s)
+int	count_words(char const *s)
 {
 	int	i;
 	int	count;
@@ -33,7 +33,7 @@ int	ft_count_words(char const *s)
 	return (count);
 }
 
-void	*ft_free_split(char **words)
+void	*free_split(char **words)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ void	*ft_free_split(char **words)
 	return (NULL);
 }
 
-char	**ft_write_words(char **words, char const *s)
+char	**write_words(char **words, char const *s)
 {
 	size_t	len;
 	size_t	i;
@@ -60,7 +60,7 @@ char	**ft_write_words(char **words, char const *s)
 			len++;
 		words[i] = (char *)malloc(len * sizeof(char) + 1);
 		if (words[i] == NULL)
-			return (ft_free_split(words));
+			return (free_split(words));
 		words[i][len] = '\0';
 		while (len > 0)
 		{
@@ -76,20 +76,20 @@ char	**ft_write_words(char **words, char const *s)
 	return (words);
 }
 
-char	**ft_split(char const *s)
+char	**ft_split_space(char const *s)
 {
 	char	**arr;
 	size_t	num_words;
 
 	if (!s)
 		return (NULL);
-	num_words = ft_count_words(s);
+	num_words = count_words(s);
 	arr = (char **)malloc(sizeof(char *) * (num_words + 1));
 	if (arr == NULL)
 		return (NULL);
 	while (ft_isspace(*s) && *s)
 		s++;
-	arr = ft_write_words(arr, s);
+	arr = write_words(arr, s);
 	arr[num_words] = NULL;
 	return (arr);
 }
