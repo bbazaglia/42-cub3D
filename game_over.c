@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void game_over(char *msg, t_game *game)
+void game_over(char *msg)
 {
     int exit_code;
 
@@ -22,28 +22,6 @@ void game_over(char *msg, t_game *game)
         printf("%s\n", msg);
         exit_code = EXIT_FAILURE;
     }
-    if (game->scene)
-		free_data(game->scene);
-	// if (game->map)
-	// 	free_data(game->map);
-	// add other elements to free
+    free_mem(get_mem_address());
 	exit(exit_code);
-}
-
-void	free_data(char **data)
-{
-	int	i;
-
-	i = 0;
-	while (data[i])
-	{
-		free(data[i]);
-		data[i] = NULL;
-		i++;
-	}
-	if (data)
-	{
-		free(data);
-		data = NULL;
-	}
 }

@@ -58,7 +58,7 @@ char	**write_words(char **words, char const *s)
 		len = 0;
 		while (!ft_isspace(s[len]) && s[len])
 			len++;
-		words[i] = (char *)malloc(len * sizeof(char) + 1);
+		words[i] = allocate_mem(len, sizeof(char) + 1);
 		if (words[i] == NULL)
 			return (free_split(words));
 		words[i][len] = '\0';
@@ -84,7 +84,7 @@ char	**ft_split_space(char const *s)
 	if (!s)
 		return (NULL);
 	num_words = count_words(s);
-	arr = (char **)malloc(sizeof(char *) * (num_words + 1));
+	arr = allocate_mem(num_words + 1, sizeof(char *));
 	if (arr == NULL)
 		return (NULL);
 	while (ft_isspace(*s) && *s)

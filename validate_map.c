@@ -21,7 +21,7 @@ void	validate_map(t_game *game)
 	while (game->map[i])
 	{
 		check_boundaries(game, game->map[i], i);
-		check_characters(game, game->map[i]);
+		check_characters(game->map[i]);
 		len = ft_strlen(game->map[i]);
 		if (len < game->width)
 			game->map[i] = fill_spaces(game->map[i], game);
@@ -29,7 +29,7 @@ void	validate_map(t_game *game)
 	}
 }
 
-void	check_characters(t_game *game, char *line)
+void	check_characters(char *line)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ void	check_characters(t_game *game, char *line)
 	{
 		if (line[i] != ' ' && line[i] != '0' && line[i] != '1' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'E' && line[i] != 'W')
-			game_over("Invalid character found in map\n", game);
+			game_over("Invalid character found in map\n");
 		i++;
 	}
 }
@@ -55,13 +55,13 @@ void	check_boundaries(t_game *game, char *line, int row)
 		while (line[i])
 		{
 			if (line[i] != '1')
-				game_over("Boundaries must be set to 1\n", game);
+				game_over("Boundaries must be set to 1\n");
 			i++;
 		}
 	}
 	len = ft_strlen(line);
 	if (line[0] != '1' || line[len - 1] != '1')
-		game_over("Boundaries must be set to 1\n", game);
+		game_over("Boundaries must be set to 1\n");
 }
 
 // replace empty spaces with spaces
@@ -71,9 +71,9 @@ char	*fill_spaces(char *cur_line, t_game *game)
 	char	*new_line;
 
 	i = 0;
-	new_line = malloc(sizeof(char) * (game->width + 1));
+	new_line = allocate_mem(game->width + 1, sizeof(char));
 	if (new_line == NULL)
-		game_over("Memory allocation failed\n", game);
+		game_over("Memory allocation failed\n");
 	while (cur_line[i])
 	{
 		new_line[i] = cur_line[i];
@@ -85,6 +85,5 @@ char	*fill_spaces(char *cur_line, t_game *game)
 		i++;
 	}
 	new_line[i] = '\0';
-	free(cur_line);
 	return (new_line);
 }

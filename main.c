@@ -49,6 +49,6 @@ int main(int argc, char **argv)
     printf("south path: %s\n", game.scene_data->south_path);
     printf("west path: %s\n", game.scene_data->west_path);
     printf("east path: %s\n", game.scene_data->east_path);
-    printf("ceiling color: %d\n", game.scene_data->c_color);
-    printf("floor color: %d\n", game.scene_data->f_color);
+    printf("ceiling color: %u\n", game.scene_data->c_color);
+    printf("floor color: %u\n", game.scene_data->f_color);
 }

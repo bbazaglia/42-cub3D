@@ -28,12 +28,12 @@ void    init_player(t_game *game, char **map)
 
 void init_data(t_game *game)
 {
-    game->player = malloc(sizeof(t_player));
+    game->player = allocate_mem(1, sizeof(t_player));
     if (game->player == NULL)
-        exit(printf("Error: Memory allocation failed for player\n"));
-    game->scene_data = malloc(sizeof(t_scene));
+        game_over("Error: Memory allocation failed for player\n");
+    game->scene_data = allocate_mem(1, sizeof(t_scene));
     if (game->scene_data == NULL)
-        exit(printf("Error: Memory allocation failed for scene data\n"));
+        game_over("Error: Memory allocation failed for scene data\n");
     game->player->dir = ' ';     
     game->player->x = -1;
     game->player->y = -1;

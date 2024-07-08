@@ -62,6 +62,8 @@ SRC = ft_putnbr_fd.c \
 	ft_putstr.c \
 	ft_abs.c \
 	ft_atol.c \
+	allocate_mem.c \
+	free_mem.c \
 	get_next_line.c 
 
 OBJ = $(addprefix ./src/, $(SRC:%.c=%.o))

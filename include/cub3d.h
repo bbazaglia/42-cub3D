@@ -88,18 +88,17 @@ typedef struct s_game
 void			parse_file(int argc, char *argv, t_game *game);
 void			read_scene(t_game *game, char *argv);
 int				check_misconfiguration(t_game *game);
-void			check_rgb(char *line, int *cardinal, uint32_t *color, t_game *game);
+void			check_rgb(char *line, int *cardinal, uint32_t *color);
 void			check_data(t_game *game);
-void			check_path(char *line, int *cardinal, char **path, t_game *game);
+void			check_path(char *line, int *cardinal, char **path);
 void			init_data(t_game *game);
 void    		init_player(t_game *game, char **map);
 void			read_map(t_game *game, int row);
 void			validate_map(t_game *game);
 char			*fill_spaces(char *cur_line, t_game *game);
-void			game_over(char *msg, t_game *game);
 void			get_num_lines(char *argv, t_scene *scene_data);
 void			check_format(char *argv);
-void			check_characters(t_game *game, char *line);
+void			check_characters(char *line);
 void			check_boundaries(t_game *game, char *line, int row);
 
 /*-------------------LOAD IMAGES---------------------------------------------*/
@@ -107,8 +106,7 @@ void			load_images(t_game *game);
 
 
 /*-------------------GAME OVER-----------------------------------------------*/
-void			game_over(char *msg, t_game *game);
-void			free_data(char **data);
+void			game_over(char *msg);
 
 /*-------------------UTILS---------------------------------------------------*/
 bool			is_empty_line(char *line);

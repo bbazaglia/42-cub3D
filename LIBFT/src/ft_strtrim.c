@@ -31,7 +31,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (ft_strchr(set, s1[end - 1]) && end > start)
 		end--;
 	trimlen = end - start;
-	trimstr = (char *)malloc(trimlen + 1);
+	trimstr = allocate_mem(trimlen + 1, sizeof(char));
 	if (trimstr == NULL)
 		return (NULL);
 	i = -1;

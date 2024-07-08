@@ -23,6 +23,8 @@ void	parse_file(int argc, char *argv, t_game *game)
 	row = check_misconfiguration(game);
 	read_map(game, row);
 	validate_map(game);
+	init_player(game, game->map);
+	check_data(game);
 }
 
 void	read_scene(t_game *game, char *argv)
@@ -33,18 +35,19 @@ void	read_scene(t_game *game, char *argv)
 	
 	init_data(game);
 	get_num_lines(argv, game->scene_data);
-	game->scene = malloc(sizeof(char *) * (game->scene_data->size + 1));
+	game->scene = allocate_mem(game->scene_data->size + 1, sizeof(char *));
 	if (game->scene == NULL)
-		exit(printf("Error: Memory allocation failed\n"));
+		game_over("Error: Memory allocation failed\n");
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		game_over("Error: Error opening .cub file\n", game);
+		game_over("Error: Error opening .cub file\n");
 	row = 0;
 	while (row < game->scene_data->size)
 	{
 		game->scene[row] = get_next_line(fd);
+		collect_mem(game->scene[row]);
 		if (game->scene[row] == NULL)
-			game_over("Error: Failed to read line\n", game);
+			game_over("Error: Failed to read line\n");
 		len = ft_strlen(game->scene[row]);
 		if (len > 0 && game->scene[row][len - 1] == '\n')
 			game->scene[row][len - 1] = '\0';
@@ -60,21 +63,19 @@ void	read_map(t_game *game, int row)
 
 	game->height = game->scene_data->size - row;
 	game->width = 0;
-	game->map = malloc(sizeof(char *) * (game->height + 1));
+	game->map = allocate_mem(game->height + 1, sizeof(char *));
 	i = 0;
 	while (game->scene[row])
 	{
 		game->map[i] = game->scene[row];
 		if (is_empty_line(game->map[i]))
-			game_over("Error: Empty line in the map\n", game);
+			game_over("Error: Empty line in the map\n");
 		if (ft_strlen(game->map[i]) > game->width)
 			game->width = ft_strlen(game->map[i]);
 		i++;
 		row++;
 	}
 	game->map[i] = NULL;
-	init_player(game, game->map);
-	check_data(game);
 }
 
 void	get_num_lines(char *argv, t_scene *scene_data)
@@ -86,7 +87,7 @@ void	get_num_lines(char *argv, t_scene *scene_data)
 	scene_data->size = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		exit(printf("Error: Error opening the map file\n"));
+		game_over("Error: Error opening the map file\n");
 	num_lines = 0;
 	while (1)
 	{

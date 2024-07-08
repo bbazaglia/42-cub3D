@@ -58,7 +58,7 @@ char	**ft_write_words(char **words, char const *s, char c)
 		len = 0;
 		while (s[len] != c && s[len])
 			len++;
-		words[i] = (char *)malloc(len * sizeof(char) + 1);
+		words[i] = allocate_mem(len + 1, sizeof(char));
 		if (words[i] == NULL)
 			return (ft_free_split(words));
 		words[i][len] = '\0';
@@ -84,7 +84,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	num_words = ft_count_words(s, c);
-	arr = ft_calloc(num_words + 1, sizeof(char *));
+	arr = allocate_mem(num_words + 1, sizeof(char *));
 	if (arr == NULL)
 		return (NULL);
 	while (*s == c && *s)

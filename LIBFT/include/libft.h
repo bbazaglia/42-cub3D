@@ -27,6 +27,10 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+t_list				**get_mem_address(void);
+void				collect_mem(void *content);
+void				*allocate_mem(size_t nmemb, size_t size);
+void				free_mem(t_list **list);
 int					ft_isspace(char c);
 char				**ft_split(char const *s, char c);
 char				**ft_split_space(char const *s);
