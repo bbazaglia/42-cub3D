@@ -51,6 +51,18 @@ $(OBJ)/%.o : %.c
 	@mkdir -p $(dir $@)	
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<\n)"
 
+build_mlx:
+ifeq (,$(wildcard ./lib/MLX42/build/libmlx42.a))
+	git clone https://github.com/codam-coding-college/MLX42.git && \
+	cd MLX42 && \
+	sed -i 's/cmake_minimum_required (VERSION 3.18.0)/cmake_minimum_required (VERSION 3.16.0)/g' CMakeLists.txt && \
+	if ! cmake -B build; then \
+		echo "Failed to configure MLX42"; \
+	else \
+		cmake --build build -j4; \
+	fi
+endif
+
 clean: 
 	@make -C ./LIBFT clean --silent
 	@rm -rf $(OBJ)

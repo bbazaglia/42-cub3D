@@ -39,24 +39,28 @@ void	check_characters(t_game *game, char *line)
 		if (line[i] != ' ' && line[i] != '0' && line[i] != '1' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'E' && line[i] != 'W')
 			game_over("Invalid character found in map\n", game);
+		i++;
 	}
 }
 
 // check if the map is surrounded by walls ('1')
 void	check_boundaries(t_game *game, char *line, int row)
 {
+	int i;
 	int	len;
 
+	i = 0;
 	if (row == 0 || row == game->scene_data->size -1)
 	{
-		while (line)
+		while (line[i])
 		{
-			if (*line != '1')
+			if (line[i] != '1')
 				game_over("Boundaries must be set to 1\n", game);
+			i++;
 		}
 	}
 	len = ft_strlen(line);
-	if (line[0] != '1' || line[len] != '1')
+	if (line[0] != '1' || line[len - 1] != '1')
 		game_over("Boundaries must be set to 1\n", game);
 }
 

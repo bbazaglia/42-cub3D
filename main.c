@@ -19,17 +19,22 @@ int main(int argc, char **argv)
     parse_file(argc, argv[1], &game);
     // game.mlx = mlx_init(game.width * PIXELS, game.height * PIXELS,"cub3d", true);
     int i = 0;
+    
+    printf("GAME SCENE\n");
     while (game.scene[i])
     {
-        printf("%s\n", game.map[i]);
+        printf("%s\n", game.scene[i]);
         i++;
     }
+
+    printf("\nGAME MAP\n");
     i = 0;
     while (game.map[i])
     {
         printf("%s\n", game.map[i]);
         i++;
     }
+    printf("\nGAME DATA SCENE\n");
     printf("player position: player[%d][%d]\nplayer dir: %c\n", game.player->x, game.player->y, game.player->dir);
     printf("print scene_data info\n");
     printf("size: %d\n", game.scene_data->size);
