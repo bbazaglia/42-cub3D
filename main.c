@@ -17,4 +17,5 @@ int main(int argc, char **argv)
     t_game game;
 
     parse_file(argc, argv[1], &game);
+    game.mlx = mlx_init(game.width * PIXELS, game.height * PIXELS,"cub3d", true);
 }

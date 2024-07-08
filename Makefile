@@ -28,6 +28,7 @@ SRC = main.c \
 	validate_map.c \
 	utils.c \
 	init.c \
+	load_images.c \
 	game_over.c
 
 OBJ = obj

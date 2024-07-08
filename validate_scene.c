@@ -42,17 +42,17 @@ int	check_misconfiguration(t_game *game)
 		{
 			line = ft_split_space(game->scene[row]);
 			if (!ft_strncmp(line[0], "NO", 2))
-				check_path(line[1], &scene_data->north, game);
+				check_path(line[1], &scene_data->north, &scene_data->north_path, game);
 			else if (!ft_strncmp(line[0], "SO", 2))
-				check_path(line[1], &scene_data->south, game);
+				check_path(line[1], &scene_data->south, &scene_data->south_path, game);
 			else if (!ft_strncmp(line[0], "WE", 2))
-				check_path(line[1], &scene_data->west, game);
+				check_path(line[1], &scene_data->west, &scene_data->west_path, game);
 			else if (!ft_strncmp(line[0], "EA", 2))
-				check_path(line[1], &scene_data->east, game);
+				check_path(line[1], &scene_data->east, &scene_data->east_path, game);
 			else if (!ft_strncmp(line[0], "F", 1))
-				check_rgb(game->scene[row], &scene_data->floor, game);
+				check_rgb(game->scene[row], &scene_data->floor, &scene_data->f_color, game);
 			else if (!ft_strncmp(line[0], "C", 1))
-				check_rgb(game->scene[row], &scene_data->ceiling, game);
+				check_rgb(game->scene[row], &scene_data->ceiling, &scene_data->c_color, game);
 			else
 				break ;
 		}
@@ -61,12 +61,13 @@ int	check_misconfiguration(t_game *game)
 	return (row);
 }
 
-void	check_path(char *line, int *cardinal, t_game *game)
+void	check_path(char *line, int *cardinal, char *path, t_game *game)
 {
 
 	*cardinal = *cardinal + 1;
 	if (open(line, O_RDONLY) == -1)
 		game_over("Error: Invalid texture path\n", game);
+	path = ft_strdup(line);
 }
 
 /* 
@@ -74,7 +75,7 @@ rgb contains digits only
 rgb contains three digits 
 rgb goes from 0 to 255
 */
-void	check_rgb(char *line, int *cardinal, t_game *game)
+void	check_rgb(char *line, int *cardinal, uint32_t *color, t_game *game)
 {
 	char	**rgb;
 	int		i;
@@ -106,7 +107,7 @@ void	check_rgb(char *line, int *cardinal, t_game *game)
 			game_over("Error: Invalid color texture\n", game);
 		i++;
 	}
-	// color = ft_pixel(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255);
+	color = ft_pixel(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255);
 }
 
 void	check_data(t_game *game)
