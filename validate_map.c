@@ -77,7 +77,7 @@ char	*fill_spaces(char *cur_line, t_game *game)
 	}
 	while (i < game->width)
 	{
-		new_line[i] = ' ';
+		new_line[i] = '0';
 		i++;
 	}
 	new_line[i] = '\0';
