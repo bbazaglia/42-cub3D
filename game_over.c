@@ -27,7 +27,6 @@ void game_over(char *msg, t_game *game)
 	if (game->map)
 		free_data(game->map);
 	// add other elements to free
-    
 	exit(exit_code);
 }
 

@@ -29,6 +29,7 @@ void	read_scene(t_game *game, char *argv)
 {
 	int	fd;
 	int	row;
+	int len;
 	
 	init_data(game);
 	get_num_lines(argv, game->scene_data);
@@ -44,6 +45,9 @@ void	read_scene(t_game *game, char *argv)
 		game->scene[row] = get_next_line(fd);
 		if (game->scene[row] == NULL)
 			game_over("Error: Failed to read line\n", game);
+		len = ft_strlen(game->scene[row]);
+		if (len > 0 && game->scene[row][len - 1] == '\n')
+			game->scene[row][len - 1] = '\0';
 		row++;
 	}
 	game->scene[row] = NULL;

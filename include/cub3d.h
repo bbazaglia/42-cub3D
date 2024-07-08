@@ -90,7 +90,7 @@ void			read_scene(t_game *game, char *argv);
 int				check_misconfiguration(t_game *game);
 void			check_rgb(char *line, int *cardinal, uint32_t *color, t_game *game);
 void			check_data(t_game *game);
-void			check_path(char *line, int *cardinal, char *path, t_game *game);
+void			check_path(char *line, int *cardinal, char **path, t_game *game);
 void			init_data(t_game *game);
 void    		init_player(t_game *game, char **map);
 void			read_map(t_game *game, int row);
@@ -103,7 +103,7 @@ void			check_characters(t_game *game, char *line);
 void			check_boundaries(t_game *game, char *line, int row);
 
 /*-------------------LOAD IMAGES---------------------------------------------*/
-void	load_images(t_game *game);
+void			load_images(t_game *game);
 
 
 /*-------------------GAME OVER-----------------------------------------------*/

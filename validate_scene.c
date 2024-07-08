@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 
+
 void	check_format(char *argv)
 {
 	int	len;
@@ -61,13 +62,12 @@ int	check_misconfiguration(t_game *game)
 	return (row);
 }
 
-void	check_path(char *line, int *cardinal, char *path, t_game *game)
+void	check_path(char *line, int *cardinal, char **path, t_game *game)
 {
-
 	*cardinal = *cardinal + 1;
 	if (open(line, O_RDONLY) == -1)
 		game_over("Error: Invalid texture path\n", game);
-	path = ft_strdup(line);
+	*path = ft_strdup(line);
 }
 
 /* 
@@ -83,6 +83,8 @@ void	check_rgb(char *line, int *cardinal, uint32_t *color, t_game *game)
 	int		valid_color;
 
 	*cardinal = *cardinal + 1;
+	while (ft_isspace(*line) || *line == 'F' || *line == 'C')
+		line++;
 	rgb = ft_split(line, ',');
 	i = 0;
 	while (rgb[i])
@@ -90,6 +92,12 @@ void	check_rgb(char *line, int *cardinal, uint32_t *color, t_game *game)
 		ft_strtrim(rgb[i], " \b\t\n\v\f\r");
 		i++;
 	}
+	// int k = 0;
+	// while (rgb[k])
+	// {
+	// 	printf("rgb[%d]: %s\n", k, rgb[k]);
+	// 	k++;
+	// }
 	if (i > 3)
 		game_over("Error: Invalid color texture\n", game);
 	i = 0;
@@ -107,7 +115,7 @@ void	check_rgb(char *line, int *cardinal, uint32_t *color, t_game *game)
 			game_over("Error: Invalid color texture\n", game);
 		i++;
 	}
-	color = ft_pixel(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255);
+	*color = ft_pixel(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255);
 }
 
 void	check_data(t_game *game)
