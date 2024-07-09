@@ -78,10 +78,15 @@ typedef struct s_game
 	size_t			width;
 	mlx_t			*mlx;
 	mlx_key_data_t	*keydata;
-	mlx_texture_t	*north;
-	mlx_texture_t	*south;
-	mlx_texture_t	*west;
-	mlx_texture_t	*east;
+	mlx_texture_t	*no_text;
+	mlx_texture_t	*so_text;
+	mlx_texture_t	*we_text;
+	mlx_texture_t	*ea_text;
+	mlx_image_t		*no_img;
+	mlx_image_t		*so_img;
+	mlx_image_t		*we_img;
+	mlx_image_t		*ea_img;
+	mlx_image_t		*background;
 }				t_game;
 
 /*-------------------PARSING AND VALIDATION----------------------------------*/
@@ -101,15 +106,22 @@ void			check_format(char *argv);
 void			check_characters(char *line);
 void			check_boundaries(t_game *game, char *line, int row);
 
-/*-------------------LOAD IMAGES---------------------------------------------*/
-void			load_images(t_game *game);
+/*-------------------RAYCASTING----------------------------------------------*/
 
+/*-------------------HOOKS---------------------------------------------------*/
+
+/*-------------------LOAD TEXTURES AND PLACE IMAGES--------------------------*/
+void			load_images(t_game *game);
+void 			render_background(t_game *game);
 
 /*-------------------GAME OVER-----------------------------------------------*/
 void			game_over(char *msg);
+void 			close_window(void *param);
+void 			delete_images(t_game *game);
 
 /*-------------------UTILS---------------------------------------------------*/
 bool			is_empty_line(char *line);
 int32_t			ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
 
 #endif

@@ -76,7 +76,10 @@ char	*fill_spaces(char *cur_line, t_game *game)
 		game_over("Memory allocation failed\n");
 	while (cur_line[i])
 	{
-		new_line[i] = cur_line[i];
+		if (cur_line[i] == ' ')
+			new_line[i] = '0';
+		else
+			new_line[i] = cur_line[i];
 		i++;
 	}
 	while (i < game->width)

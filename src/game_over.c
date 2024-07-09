@@ -14,6 +14,7 @@
 
 void game_over(char *msg)
 {
+    char *param;
     int exit_code;
 
     exit_code = EXIT_SUCCESS;
@@ -22,6 +23,30 @@ void game_over(char *msg)
         printf("%s\n", msg);
         exit_code = EXIT_FAILURE;
     }
-    free_mem(get_mem_address());
+    free_mem(get_mem_address()); 
+    close_window(param);
 	exit(exit_code);
+}
+
+void close_window(void *param)
+{
+    t_game *game;
+
+    game = param;
+    delete_images(game);
+    mlx_close_window(game->mlx);
+	mlx_terminate(game->mlx);
+}
+
+void delete_images(t_game *game)
+{
+    mlx_delete_image(game->mlx, game->no_img);    
+    mlx_delete_image(game->mlx, game->so_img);
+    mlx_delete_image(game->mlx, game->we_img);
+    mlx_delete_image(game->mlx, game->ea_img);
+    mlx_delete_image(game->mlx, game->background);
+    mlx_delete_texture(game->no_text);
+    mlx_delete_texture(game->so_text);
+    mlx_delete_texture(game->we_text);
+    mlx_delete_texture(game->ea_text);
 }

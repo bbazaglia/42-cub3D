@@ -17,16 +17,21 @@ int main(int argc, char **argv)
     t_game game;
 
     parse_file(argc, argv[1], &game);
-    // game.mlx = mlx_init(game.width * PIXELS, game.height * PIXELS,"cub3d", true);
-    int i = 0;
-    
+    // game.mlx = mlx_init(game.width * PIXELS, game.height * PIXELS, "cub3d", true);
+    // if (!game.mlx)
+    //     game_over("Error: Failed to initialize mlx\n");
+    // mlx_key_hook(game.mlx, hook, &game);
+
+
+
+    /* print statements
     printf("GAME SCENE\n");
+    int i = 0;
     while (game.scene[i])
     {
         printf("%s\n", game.scene[i]);
         i++;
     }
-
     printf("\nGAME MAP\n");
     i = 0;
     while (game.map[i])
@@ -51,4 +56,5 @@ int main(int argc, char **argv)
     printf("east path: %s\n", game.scene_data->east_path);
     printf("ceiling color: %u\n", game.scene_data->c_color);
     printf("floor color: %u\n", game.scene_data->f_color);
+    */
 }

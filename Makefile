@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g3 ./MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-# VPATH = 
+VPATH = src
 
 INCLUDE = -I./include -I ./MLX42/include -I ./LIBFT/include
 
@@ -29,6 +29,7 @@ SRC = main.c \
 	utils.c \
 	init.c \
 	load_images.c \
+	hooks.c \
 	game_over.c
 
 OBJ = obj
