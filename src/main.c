@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     t_game game;
 
     parse_file(argc, argv[1], &game);
-    // game.mlx = mlx_init(game.width * PIXELS, game.height * PIXELS, "cub3d", true);
+    // game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
     // if (!game.mlx)
     //     game_over("Error: Failed to initialize mlx\n");
     // mlx_key_hook(game.mlx, hook, &game);
@@ -40,7 +40,7 @@ int main(int argc, char **argv)
         i++;
     }
     printf("\nGAME DATA SCENE\n");
-    printf("player position: player[%d][%d]\nplayer dir: %c\n", game.player->x, game.player->y, game.player->dir);
+    printf("player position: player[%d][%d]\nplayer dir: %c\n", game.player->mx, game.player->my, game.player->dir);
     printf("print scene_data info\n");
     printf("size: %d\n", game.scene_data->size);
     printf("player_count: %d\n", game.scene_data->player_count);

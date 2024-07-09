@@ -25,6 +25,7 @@ void	parse_file(int argc, char *argv, t_game *game)
 	validate_map(game);
 	init_player(game, game->map);
 	check_data(game);
+	init_pos(game);
 }
 
 void	read_scene(t_game *game, char *argv)

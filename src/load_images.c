@@ -18,15 +18,15 @@ void render_background(t_game *game)
     size_t y;
 
     x = 0;
-    game->background = mlx_new_image(game->mlx, game->width * PIXELS, game->height * PIXELS);
+    game->background = mlx_new_image(game->mlx, game->width * CELL, game->height * CELL);
     if (!game->background)
         game_over("Error: Failed to create background image\n");
     // complete all rows from top to bottom
-    while (x < game->height * PIXELS)
+    while (x < game->height * CELL)
     {
         y = 0;
         // complete all columns from left to right
-        while (y < game->width * PIXELS)
+        while (y < game->width * CELL)
         {
             // if the row is on the top half of the screen, color it with the ceiling color
             if (x < (game->height / 2))

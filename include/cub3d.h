@@ -24,7 +24,10 @@
 # include <stdio.h>
 # include "MLX42/MLX42.h"
 
-# define PIXELS 64
+# define WIDTH 1024
+# define HEIGHT 512
+# define CELL 64
+# define PI 3.14159265359
 
 
 /*-------------------STRUCTS-------------------------------------------------*/
@@ -45,9 +48,14 @@ typedef struct s_vector
 
 typedef struct s_player
 {
-	int			x;
-	int			y;
+	int			mx;
+	int			my;
+	int			px;
+	int			py;
 	char 		dir;
+	double		dirx;
+	double		diry;
+	double		pa;
 }				t_player;
 
 typedef struct s_scene
@@ -105,6 +113,7 @@ void			get_num_lines(char *argv, t_scene *scene_data);
 void			check_format(char *argv);
 void			check_characters(char *line);
 void			check_boundaries(t_game *game, char *line, int row);
+void 			init_pos(t_game *game);
 
 /*-------------------RAYCASTING----------------------------------------------*/
 
