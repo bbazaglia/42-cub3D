@@ -17,6 +17,7 @@ void game_over(char *msg)
     char *param;
     int exit_code;
 
+    param = NULL;
     exit_code = EXIT_SUCCESS;
     if (msg)
     {

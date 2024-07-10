@@ -56,6 +56,38 @@ void init_pos(t_game *game)
         game->player->pa = 0;
     else if (game->player->dir == 'W')
         game->player->pa = PI;
+
+    printf("player angle: %f\n", game->player->pa);
+
     game->player->px = (game->player->mx * CELL) + (CELL / 2);
     game->player->py = (game->player->my * CELL) + (CELL / 2);
+
+    printf("player px: %d\n", game->player->px);
+    printf("player py: %d\n", game->player->py);
+}
+
+mlx_t	*init_mlx(void)
+{
+	mlx_t	*mlx;
+
+	mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", false);
+	if (!mlx)
+		game_over("Error: mlx"); 
+	return (mlx);
+}
+
+mlx_image_t	*init_image(mlx_t *mlx)
+{
+	mlx_image_t	*mlx_image;
+
+	mlx_image = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!mlx_image)
+		game_over("Error: mlx"); 
+	return (mlx_image);
+}
+
+void	init_window(mlx_t *mlx, mlx_image_t *mlx_image)
+{
+	if (mlx_image_to_window(mlx, mlx_image, 0, 0) == -1)
+	    game_over("Error: mlx"); 
 }

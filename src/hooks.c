@@ -6,16 +6,44 @@ void hook(mlx_key_data_t keydata, void *param)
 
 	game = param;
 
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		game_over("Game Over\n");
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		move_vertical(game, 1);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		move_vertical(game, -1);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_horizontal(game, 1);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_horizontal(game, -1);
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_ESCAPE)
+			game_over("Game Over\n");
+		if (keydata.key == MLX_KEY_A)
+		{
+			game->player->pa -= 0.1;
+			if(game->player->pa < 0)
+				game->player->pa += 2*PI;
+			game->player->pdx = cos(game->player->pa) * 5;
+			game->player->pdy = sin(game->player->pa) * 5;
+		}
+		if (keydata.key == MLX_KEY_D)
+		{
+			game->player->pa += 0.1;
+			if(game->player->pa > 2*PI)
+				game->player->pa -= 2*PI;
+			game->player->pdx = cos(game->player->pa) * 5;
+			game->player->pdy = sin(game->player->pa) * 5;
+		}
+		if (keydata.key == MLX_KEY_W)
+		{
+			game->player->px += game->player->pdx;
+			game->player->py += game->player->pdy;
+		}
+		if (keydata.key == MLX_KEY_S)
+		{
+			game->player->px -= game->player->pdx;
+			game->player->py -= game->player->pdy;
+		}
+
+	mlx_delete_image(game->mlx, game->pmlx_image);
+	game->pmlx_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(game->mlx, game->pmlx_image, 0, 0);
+	get_distance(game);
+}
+
+	
 }
 
 void move_vertical(t_game *game, int direction)

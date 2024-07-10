@@ -128,8 +128,8 @@ void	check_data(t_game *game)
 		game_over("Error: Wrong amount of textures\n");
 	if (game->scene_data->player_count != 1)
         game_over("Error: Incorrect number of players in the map\n");
-    if (game->player->x  != -1 && game->player->y != -1)
-        map[game->player->y][game->player->x] = '0'; // normalize map data: replace player's position with 0
+    if (game->player->mx  != -1 && game->player->my != -1)
+        map[game->player->my][game->player->mx] = '0'; // normalize map data: replace player's position with 0
     else
         game_over("Error: Player's starting position not found\n");
 }

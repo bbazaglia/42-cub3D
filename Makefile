@@ -14,32 +14,37 @@ NAME = cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g3 ./MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
+CFLAGS = -Wall -Wextra -Werror -g3
+
+LIBS = ./MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 VPATH = src
 
-INCLUDE = -I./include -I ./MLX42/include -I ./LIBFT/include
+INCLUDE = -I./include -I./MLX42/include -I./LIBFT/include
 
 LIBFT = ./LIBFT/libft.a
 
 SRC = main.c \
-	parse.c \
-	validate_scene.c \
-	validate_map.c \
-	utils.c \
-	init.c \
-	load_images.c \
-	hooks.c \
-	game_over.c
+      parse.c \
+      validate_scene.c \
+      validate_map.c \
+      utils.c \
+      init.c \
+      load_images.c \
+      hooks.c \
+      game_over.c \
+	  render.c \
+	  math.c \
+	  bresenham.c \
 
 OBJ = obj
 
 SRC_OBJ = $(SRC:%.c=$(OBJ)/%.o)
 
-all: libft libmlx $(NAME)
+all: libft $(NAME)
 
-$(NAME): libft $(SRC_OBJ) 
-	@$(CC) $(CFLAGS) $(SRC_OBJ) $(LIBFT) -o $(NAME) 
+$(NAME): $(SRC_OBJ) $(LIBFT) libmlx
+	@$(CC) $(CFLAGS) $(SRC_OBJ) $(LIBFT) $(LIBS) -o $(NAME)
 	@echo "Compilation completed: $@"
 
 libmlx:
@@ -48,33 +53,21 @@ libmlx:
 libft:
 	@make -C ./LIBFT
 
-$(OBJ)/%.o : %.c
-	@mkdir -p $(dir $@)	
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<\n)"
+$(OBJ)/%.o: %.c
+	@mkdir -p $(OBJ)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<)\n"
 
-build_mlx:
-ifeq (,$(wildcard ./lib/MLX42/build/libmlx42.a))
-	git clone https://github.com/codam-coding-college/MLX42.git && \
-	cd MLX42 && \
-	sed -i 's/cmake_minimum_required (VERSION 3.18.0)/cmake_minimum_required (VERSION 3.16.0)/g' CMakeLists.txt && \
-	if ! cmake -B build; then \
-		echo "Failed to configure MLX42"; \
-	else \
-		cmake --build build -j4; \
-	fi
-endif
-
-clean: 
+clean:
 	@make -C ./LIBFT clean --silent
 	@rm -rf $(OBJ)
 	@rm -rf ./MLX42/build
-	@echo "objects removed" 
+	@echo "Objects removed"
 
 fclean: clean
-	@make -C ./LIBFT fclean --silent 
-	@rm -f $(NAME) 
-	@echo "executable removed"
+	@make -C ./LIBFT fclean --silent
+	@rm -f $(NAME)
+	@echo "Executable removed"
 
 re: fclean all
 
-.PHONY: all clean fclean re libft bonus
+.PHONY: all clean fclean re libft libmlx
