@@ -56,6 +56,8 @@ typedef struct s_player
 	double		dirx;
 	double		diry;
 	double		pa;
+	double		pdx;
+	double		pdy;
 }				t_player;
 
 typedef struct s_scene
@@ -117,7 +119,11 @@ void 			init_pos(t_game *game);
 
 /*-------------------RAYCASTING----------------------------------------------*/
 
-/*-------------------HOOKS---------------------------------------------------*/
+/*-------------------HOOKS AND MOVES-----------------------------------------*/
+void 			hook(mlx_key_data_t keydata, void *param);
+void 			move_vertical(t_game *game, int direction);
+void			move_horizontal(t_game *game, int direction);
+double			fix_ang(double a);
 
 /*-------------------LOAD TEXTURES AND PLACE IMAGES--------------------------*/
 void			load_images(t_game *game);
