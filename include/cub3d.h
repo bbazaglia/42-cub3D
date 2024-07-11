@@ -53,8 +53,8 @@ typedef struct s_player
 {
 	int mx;
 	int my;
-	int px;
-	int py;
+	double px;
+	double py;
 	char dir;
 	double dirx;
 	double diry;
@@ -160,6 +160,8 @@ void move_vertical(t_game *game, int direction);
 void move_horizontal(t_game *game, int direction);
 double fix_ang(double a);
 
+bool check_collision(t_game *game, char key);
+
 /*-------------------LOAD TEXTURES AND PLACE IMAGES--------------------------*/
 void load_images(t_game *game);
 void render_background(t_game *game);
@@ -178,6 +180,7 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void	put_valid_pixel(mlx_image_t *mlx_image, int x, int y, uint32_t color);
 void fill_cell(t_coord *point_1, t_coord *point_2, mlx_image_t *mlx_image);
 void	render_map(t_game *game);
+void draw_scene(t_math *math, t_game *game, int r);
 
 //bresenham //remove
 
@@ -204,6 +207,6 @@ void find_horiz_ray_dim(t_math *math, t_game *game);
 void find_vert_ray_dim(t_math *math, t_game *game);
 void find_horiz_ray_limit(t_math *math, t_game *game);
 void find_vert_ray_limit(t_math *math, t_game *game);
-void draw_scene(t_math *math, t_game *game, int r);
+
 
 #endif

@@ -34,7 +34,7 @@ void get_distance(t_game *game)
 	bresenham(&point_3, &point_4, game->pmlx_image);
 
 	/* Get Distance */
-	
+
 	int r;
 	t_math math;
 
@@ -85,7 +85,7 @@ void get_distance(t_game *game)
 			math.sy = math.vy;
 			math.distS = math.distV;
 		}
-		
+
 		/* just to print */
 
 		t_coord point_5;
@@ -112,10 +112,10 @@ void get_distance(t_game *game)
 
 void norm_angle(double *angle)
 {
-	if(*angle < 0)
-		*angle += (2*PI);
-	if(*angle > (2*PI))
-		*angle -= (2*PI);
+	if (*angle < 0)
+		*angle += (2 * PI);
+	if (*angle > (2 * PI))
+		*angle -= (2 * PI);
 }
 
 double dist(int ax, int ay, int bx, int by)
@@ -171,72 +171,33 @@ void find_vert_ray_dim(t_math *math, t_game *game)
 
 void find_horiz_ray_limit(t_math *math, t_game *game)
 {
-	int dof;
-
-	dof = 0;
-	while (dof < 16) // replace this for collision verification
+	math->mx = abs((int)(math->rx) >> BIT);
+	math->my = abs((int)(math->ry) >> BIT);
+	while (math->mx < game->width && math->my < game->height && game->map[math->my][math->mx] == '0')
 	{
+		math->rx += math->xo;
+		math->ry += math->yo;
 		math->mx = abs((int)(math->rx) >> BIT);
 		math->my = abs((int)(math->ry) >> BIT);
-		if (math->mx < game->width && math->my < game->height && game->map[math->my][math->mx] == '1')
-		{
-			dof = 16;
-			math->hx = math->rx;
-			math->hy = math->ry;
-			math->distH = dist(game->player->px, game->player->py, math->hx, math->hy);
-		}
-		else
-		{
-			math->rx += math->xo;
-			math->ry += math->yo;
-			dof += 1;
-		}
 	}
+	math->hx = math->rx;
+	math->hy = math->ry;
+	math->distH = dist(game->player->px, game->player->py, math->hx, math->hy);
 }
 
 void find_vert_ray_limit(t_math *math, t_game *game)
 {
-	int dof;
-
-	dof = 0;
-	while (dof < 16) // replace this for collision verification
+	math->mx = abs((int)(math->rx) >> BIT);
+	math->my = abs((int)(math->ry) >> BIT);
+	while (math->mx < game->width && math->my < game->height && game->map[math->my][math->mx] == '0')
 	{
+
+		math->rx += math->xo;
+		math->ry += math->yo;
 		math->mx = abs((int)(math->rx) >> BIT);
 		math->my = abs((int)(math->ry) >> BIT);
-		if (math->mx < game->width && math->my < game->height && game->map[math->my][math->mx] == '1')
-		{
-			dof = 16;
-			math->vx = math->rx;
-			math->vy = math->ry;
-			math->distV = dist(game->player->px, game->player->py, math->vx, math->vy);
-		}
-		else
-		{
-			math->rx += math->xo;
-			math->ry += math->yo;
-			dof += 1;
-		}
 	}
-}
-
-void draw_scene(t_math *math, t_game *game, int r)
-{
-	t_coord point_1;
-	t_coord point_2;
-
-	math->ca = game->player->pa - math->ra;
-	norm_angle(&math->ca);
-
-	math->distS = cos(math->ca) * math->distS;
-	math->lineH = (HEIGHT * CELL) / math->distS;
-	math->lineO = (HEIGHT - math->lineH)/2;
-
-	point_1.x = (r * 8) + 530; 
-	point_1.y = math->lineO;
-	point_1.color = 0xFF0000FF;
-	point_2.x = (((r + 1) * 8) - 1) + 530;
-	point_2.y = math->lineO + math->lineH;
-	point_2.color = 0xFF0000FF;
-
-	fill_cell(&point_1, &point_2, game->pmlx_image);
+	math->vx = math->rx;
+	math->vy = math->ry;
+	math->distV = dist(game->player->px, game->player->py, math->vx, math->vy);
 }

@@ -6,6 +6,28 @@ void	put_valid_pixel(mlx_image_t *mlx_image, int x, int y, uint32_t color)
 		mlx_put_pixel(mlx_image, x, y, color);
 }
 
+void fill_cell(t_coord *point_1, t_coord *point_2, mlx_image_t *mlx_image)
+{
+    int x;
+    int y;
+    uint32_t	color;
+
+    x = point_1->x;
+    y = point_1->y;
+    color = point_1->color;
+
+    while(y <= point_2->y)
+    {
+        x = point_1->x;
+        while(x <= point_2->x)
+        {
+		    put_valid_pixel(mlx_image, x, y, color);
+            x++;
+        }
+        y++;
+    }
+}
+
 void	render_map(t_game *game)
 {
 	size_t i;
@@ -40,24 +62,24 @@ void	render_map(t_game *game)
 	}
 }
 
-void fill_cell(t_coord *point_1, t_coord *point_2, mlx_image_t *mlx_image)
+void draw_scene(t_math *math, t_game *game, int r)
 {
-    int x;
-    int y;
-    uint32_t	color;
+	t_coord point_1;
+	t_coord point_2;
 
-    x = point_1->x;
-    y = point_1->y;
-    color = point_1->color;
+	math->ca = game->player->pa - math->ra;
+	norm_angle(&math->ca);
 
-    while(y <= point_2->y)
-    {
-        x = point_1->x;
-        while(x <= point_2->x)
-        {
-		    put_valid_pixel(mlx_image, x, y, color);
-            x++;
-        }
-        y++;
-    }
+	math->distS = cos(math->ca) * math->distS;
+	math->lineH = (HEIGHT * CELL) / math->distS;
+	math->lineO = (HEIGHT - math->lineH)/2;
+
+	point_1.x = (r * 8) + 530; 
+	point_1.y = math->lineO;
+	point_1.color = 0xFF0000FF;
+	point_2.x = (((r + 1) * 8) - 1) + 530;
+	point_2.y = math->lineO + math->lineH;
+	point_2.color = 0xFF0000FF;
+
+	fill_cell(&point_1, &point_2, game->pmlx_image);
 }

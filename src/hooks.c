@@ -1,7 +1,34 @@
 #include "cub3d.h"
 
+bool check_collision(t_game *game, char key)
+{
+    double x;
+    double y;
+    size_t mx;
+    size_t my;
+
+	if(key == 'w')
+	{
+		x = game->player->px + game->player->pdx;   
+		y = game->player->py + game->player->pdy;
+	}
+	else if(key == 's')
+	{
+		x = game->player->px - game->player->pdx;   
+		y = game->player->py - game->player->pdy;
+	}
+
+    mx = abs((int)(x) >> BIT);
+	my = abs((int)(y) >> BIT);
+
+	if (mx < game->width && my < game->height && game->map[my][mx] == '0')
+        return (false);
+    return (true);
+}
+
 void hook(mlx_key_data_t keydata, void *param)
 {
+	bool collision;
 	t_game *game;
 
 	game = param;
@@ -28,13 +55,24 @@ void hook(mlx_key_data_t keydata, void *param)
 		}
 		if (keydata.key == MLX_KEY_W)
 		{
-			game->player->px += game->player->pdx;
-			game->player->py += game->player->pdy;
+			collision = check_collision(game, 'w');
+
+			if(!collision)
+			{
+				game->player->px += game->player->pdx;
+				game->player->py += game->player->pdy;
+			}
 		}
 		if (keydata.key == MLX_KEY_S)
 		{
-			game->player->px -= game->player->pdx;
-			game->player->py -= game->player->pdy;
+			collision = check_collision(game, 's');
+
+			if(!collision)
+			{
+				game->player->px -= game->player->pdx;
+				game->player->py -= game->player->pdy;
+			}
+			
 		}
 
 	mlx_delete_image(game->mlx, game->pmlx_image);
