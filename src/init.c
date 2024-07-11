@@ -57,13 +57,8 @@ void init_pos(t_game *game)
     else if (game->player->dir == 'W')
         game->player->pa = PI;
 
-    printf("player angle: %f\n", game->player->pa);
-
     game->player->px = (game->player->mx * CELL) + (CELL / 2);
     game->player->py = (game->player->my * CELL) + (CELL / 2);
-
-    printf("player px: %d\n", game->player->px);
-    printf("player py: %d\n", game->player->py);
 }
 
 mlx_t	*init_mlx(void)

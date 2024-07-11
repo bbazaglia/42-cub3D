@@ -27,8 +27,10 @@
 #define WIDTH 1024
 #define HEIGHT 512
 #define CELL 16
+# define BIT 4
 #define PI 3.14159265359
 # define DR 0.0174533
+# define HIGH_VALUE 1000000
 
 /*-------------------STRUCTS-------------------------------------------------*/
 
@@ -118,10 +120,14 @@ typedef struct s_math
 	double vx;
 	double vy;
 	double distV;
+	size_t mx;
+	size_t my;
 	double ca;
-	int dof;
-	int mx;
-	int my;
+	double sx;
+	double sy;
+	double distS;
+	double lineH;
+	double lineO;
 } t_math;
 
 
@@ -172,7 +178,6 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 void	put_valid_pixel(mlx_image_t *mlx_image, int x, int y, uint32_t color);
 void fill_cell(t_coord *point_1, t_coord *point_2, mlx_image_t *mlx_image);
 void	render_map(t_game *game);
-void get_distance(t_game *game);
 
 //bresenham //remove
 
@@ -189,5 +194,16 @@ void	check_delta_to_move_variable(int d, int *variable);
 void	slope_lower_1(t_bres *aux, t_coord *point, mlx_image_t *mlx_image);
 void	slope_bigger_equal_1(t_bres *aux, t_coord *point, mlx_image_t *mlx_image);
 void	bresenham(t_coord *point_1, t_coord *point_2, mlx_image_t *mlx_image);
+
+
+/*-------------------MATH---------------------------------------------------*/
+void get_distance(t_game *game);
+void norm_angle(double *angle);
+double dist(int ax, int ay, int bx, int by);
+void find_horiz_ray_dim(t_math *math, t_game *game);
+void find_vert_ray_dim(t_math *math, t_game *game);
+void find_horiz_ray_limit(t_math *math, t_game *game);
+void find_vert_ray_limit(t_math *math, t_game *game);
+void draw_scene(t_math *math, t_game *game, int r);
 
 #endif
