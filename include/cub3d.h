@@ -168,7 +168,7 @@ void render_background(t_game *game);
 
 /*-------------------GAME OVER-----------------------------------------------*/
 void game_over(char *msg);
-void close_window(void *param);
+void end_mlx(t_game *game);
 void delete_images(t_game *game);
 
 /*-------------------UTILS---------------------------------------------------*/

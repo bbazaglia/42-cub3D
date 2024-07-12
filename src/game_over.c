@@ -14,10 +14,8 @@
 
 void game_over(char *msg)
 {
-    char *param;
     int exit_code;
 
-    param = NULL;
     exit_code = EXIT_SUCCESS;
     if (msg)
     {
@@ -25,16 +23,12 @@ void game_over(char *msg)
         exit_code = EXIT_FAILURE;
     }
     free_mem(get_mem_address()); 
-    close_window(param);
 	exit(exit_code);
 }
 
-void close_window(void *param)
+void end_mlx(t_game *game)
 {
-    t_game *game;
-
-    game = param;
-    delete_images(game);
+    // delete_images(game);
     mlx_close_window(game->mlx);
 	mlx_terminate(game->mlx);
 }

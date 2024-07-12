@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
 	game.mlx = mlx;
 	game.mlx_image = mlx_image;
-
+    game.pmlx_image = NULL;
 	render_map(&game); //remove
 
 	init_window(mlx, mlx_image);
