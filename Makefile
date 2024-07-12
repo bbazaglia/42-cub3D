@@ -43,7 +43,7 @@ SRC_OBJ = $(SRC:%.c=$(OBJ)/%.o)
 
 all: libft $(NAME)
 
-$(NAME): $(SRC_OBJ) $(LIBFT) libmlx
+$(NAME): $(SRC_OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(SRC_OBJ) $(LIBFT) $(LIBS) -o $(NAME)
 	@echo "Compilation completed: $@"
 
@@ -63,8 +63,10 @@ $(OBJ)/%.o: %.c
 clean:
 	@make -C ./LIBFT clean --silent
 	@rm -rf $(OBJ)
-	@rm -rf ./MLX42/build
 	@echo "Objects removed"
+
+cleanmlx:
+	@rm -rf ./MLX42/build
 
 fclean: clean
 	@make -C ./LIBFT fclean --silent
