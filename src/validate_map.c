@@ -50,21 +50,21 @@ void	check_boundaries(t_game *game, char *line, int row)
 	int	len;
 
 	i = 0;
-	if (row == 0 || row == game->scene_data->size -1)
+	if (row == 0 || row == (int)game->height -1)
 	{
 		while (line[i])
 		{
-			if (line[i] != '1')
+			if (line[i] != '1' && line[i] != ' ')
 				game_over("Boundaries must be set to 1\n");
 			i++;
 		}
 	}
 	len = ft_strlen(line);
-	if (line[0] != '1' || line[len - 1] != '1')
+	if ((line[0] != '1' && line[0] != ' ' )|| (line[len - 1] != '1' && line[len - 1] != ' '))
 		game_over("Boundaries must be set to 1\n");
 }
 
-// replace empty spaces with spaces
+// replace empty spaces with 1
 char	*fill_spaces(char *cur_line, t_game *game)
 {
 	size_t	i;
@@ -77,16 +77,18 @@ char	*fill_spaces(char *cur_line, t_game *game)
 	while (cur_line[i])
 	{
 		if (cur_line[i] == ' ')
-			new_line[i] = '0';
+			new_line[i] = '1';
 		else
 			new_line[i] = cur_line[i];
 		i++;
 	}
 	while (i < game->width)
 	{
-		new_line[i] = '0';
+		new_line[i] = '1';
 		i++;
 	}
 	new_line[i] = '\0';
 	return (new_line);
 }
+
+

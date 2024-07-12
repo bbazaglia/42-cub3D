@@ -33,10 +33,12 @@ void hook(mlx_key_data_t keydata, void *param)
 
 	game = param;
 
+
 	if (keydata.action == MLX_PRESS)
 	{
 		if (keydata.key == MLX_KEY_ESCAPE)
-			game_over("Game Over\n");
+			mlx_terminate(game->mlx);
+			// game_over("Game Over\n");
 		if (keydata.key == MLX_KEY_A)
 		{
 			game->player->pa -= 0.1;
@@ -74,8 +76,8 @@ void hook(mlx_key_data_t keydata, void *param)
 			}
 			
 		}
-
-	mlx_delete_image(game->mlx, game->pmlx_image);
+	if (game->pmlx_image)
+		mlx_delete_image(game->mlx, game->pmlx_image);
 	game->pmlx_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game->mlx, game->pmlx_image, 0, 0);
 	get_distance(game);

@@ -53,6 +53,9 @@ libmlx:
 libft:
 	@make -C ./LIBFT
 
+val:
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/validmap.cub
+
 $(OBJ)/%.o: %.c
 	@mkdir -p $(OBJ)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<)\n"
