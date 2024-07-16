@@ -15,7 +15,7 @@ void render_background(t_game *game)
     size_t x;
     size_t y;
 
-    x = 530;
+    x = 500;
     while (x < WIDTH)
     {
         y = 0;

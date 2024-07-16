@@ -32,6 +32,7 @@ void get_distance(t_game *game)
 	point_4.color = 0xFFFF00FF;
 
 	bresenham(&point_3, &point_4, game->pmlx_image);
+	
 	render_background(game);
 
 	/* Get Distance */
@@ -43,7 +44,7 @@ void get_distance(t_game *game)
 	norm_angle(&math.ra);
 
 	r = 0;
-	while (r < 60)
+	while (r < 400)
 	{
 
 		/* HORIZONTAL LINES */
@@ -53,10 +54,11 @@ void get_distance(t_game *game)
 		math.ry = 0;
 		math.hx = 0;
 		math.hy = 0;
-		math.distH = HIGH_VALUE;
+		math.dist_horiz = HIGH_VALUE;
 		math.mx = 0;
 		math.my = 0;
 
+		// if(math->ra != 0 && math->ra != PI)
 		find_horiz_ray_dim(&math, game);
 		find_horiz_ray_limit(&math, game);
 
@@ -67,7 +69,7 @@ void get_distance(t_game *game)
 		math.ry = 0;
 		math.vx = 0;
 		math.vy = 0;
-		math.distV = HIGH_VALUE;
+		math.dist_vert = HIGH_VALUE;
 		math.mx = 0;
 		math.my = 0;
 
@@ -75,18 +77,24 @@ void get_distance(t_game *game)
 		find_vert_ray_limit(&math, game);
 
 		/* find_shortest_distance */
-
-		math.sx = math.hx;
-		math.sy = math.hy;
-		math.distS = math.distH;
-		math.is_horiz = true;
-
-		if (math.distH > math.distV)
-		{
 			math.sx = math.vx;
 			math.sy = math.vy;
-			math.distS = math.distV;
+			math.distS = math.dist_vert;
 			math.is_horiz = false;
+
+		if (math.dist_horiz < math.dist_vert)
+		{
+			math.sx = math.hx;
+			math.sy = math.hy;
+			math.distS = math.dist_horiz;
+			math.is_horiz = true;
+		}
+
+		if(math.sx > 600)
+		{
+			printf("dist_horiz: %f, dist_vert: %f\n", math.dist_horiz, math.dist_vert);
+
+			printf("mx: %zu, my: %zu, mp: %c, angle: %f\n", math.mx, math.my, game->map[math.my][math.mx], math.ra);
 		}
 
 		/* just to print */
@@ -108,7 +116,7 @@ void get_distance(t_game *game)
 		draw_scene(&math, game, r);
 
 		r += 1;
-		math.ra += (1 * DR);
+		math.ra += (0.15 * DR);
 		norm_angle(&math.ra);
 	}
 }
@@ -123,15 +131,20 @@ void norm_angle(double *angle)
 
 double dist(int ax, int ay, int bx, int by)
 {
-	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+	double result;
+
+	result = sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay));
+	if(isnan(result))
+		result = HIGH_VALUE;
+	return (result);
 }
 
 void find_horiz_ray_dim(t_math *math, t_game *game)
 {
 	if (math->ra == 0 || math->ra == PI)
 	{
-		math->rx = game->player->px;
-		math->ry = game->player->py;
+		math->rx = game->player->px + game->width;
+		math->ry = game->player->py + game->height;
 	}
 	else if (math->ra > PI) // looking up
 	{
@@ -151,10 +164,10 @@ void find_horiz_ray_dim(t_math *math, t_game *game)
 
 void find_vert_ray_dim(t_math *math, t_game *game)
 {
-	if (math->ra == 0 || math->ra == PI)
+	if (math->ra == PI / 2 || math->ra == 3*PI/2)
 	{
-		math->rx = game->player->px;
-		math->ry = game->player->py;
+		math->rx = game->player->px + game->width;
+		math->ry = game->player->py + game->height; 
 	}
 	else if (math->ra > PI / 2 && math->ra < 3 * PI / 2) // looking left
 	{
@@ -176,6 +189,7 @@ void find_horiz_ray_limit(t_math *math, t_game *game)
 {
 	math->mx = abs((int)(math->rx) >> BIT);
 	math->my = abs((int)(math->ry) >> BIT);
+
 	while (math->mx < game->width && math->my < game->height && game->map[math->my][math->mx] == '0')
 	{
 		math->rx += math->xo;
@@ -185,13 +199,15 @@ void find_horiz_ray_limit(t_math *math, t_game *game)
 	}
 	math->hx = math->rx;
 	math->hy = math->ry;
-	math->distH = dist(game->player->px, game->player->py, math->hx, math->hy);
+	// printf("hx: %f, hy: %f, px: %f, py: %f\n", math->hx, math->hy, game->player->px, game->player->py);
+	math->dist_horiz = dist(game->player->px, game->player->py, math->hx, math->hy);
 }
 
 void find_vert_ray_limit(t_math *math, t_game *game)
 {
 	math->mx = abs((int)(math->rx) >> BIT);
 	math->my = abs((int)(math->ry) >> BIT);
+
 	while (math->mx < game->width && math->my < game->height && game->map[math->my][math->mx] == '0')
 	{
 
@@ -202,5 +218,5 @@ void find_vert_ray_limit(t_math *math, t_game *game)
 	}
 	math->vx = math->rx;
 	math->vy = math->ry;
-	math->distV = dist(game->player->px, game->player->py, math->vx, math->vy);
+	math->dist_vert = dist(game->player->px, game->player->py, math->vx, math->vy);
 }

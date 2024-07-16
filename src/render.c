@@ -6,11 +6,11 @@ void	put_valid_pixel(mlx_image_t *mlx_image, int x, int y, uint32_t color)
 		mlx_put_pixel(mlx_image, x, y, color);
 }
 
+/* c = T[(int)(ty*32) + (int)tx] */
 uint32_t	texture_to_rgb(mlx_texture_t *texture, int x, int y)
 {
 	uint8_t	*rgb;
 
-	/* c = T[(int)(ty*32) + (int)tx] */
 	rgb = &texture->pixels[(y * texture->width + x) * texture->bytes_per_pixel];
 	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | rgb[3]);
 }
@@ -95,20 +95,20 @@ void	draw_scene(t_math *math, t_game *game, int r)
 	double		ty;
 	double		ty_step;
 	uint32_t	color;
-	t_coord		point_1;
-	t_coord		point_2;
+	// t_coord		point_1;
+	// t_coord		point_2;
 
 	math->ca = game->player->pa - math->ra;
 	norm_angle(&math->ca);
 	math->distS = cos(math->ca) * math->distS;
 	math->lineH = (HEIGHT * CELL) / math->distS;
 	math->lineO = (HEIGHT - math->lineH) / 2;
+
 	/* Texture */
 	ty_step = game->tex_height / math->lineH;
 	ty = 0;
 	if (math->is_horiz) // point in horizontal line
 	{
-		// printf("AQUI\n");
 		tx = (int)(math->sx * (game->tex_width / CELL)) % game->tex_width;
 		// if (math->ra < PI && math->ra > 0)
 		// 	tx = (game->tex_width - 1) - tx;
@@ -123,22 +123,18 @@ void	draw_scene(t_math *math, t_game *game, int r)
 	while (y < math->lineH)
 	{
 		color = texture_to_rgb(get_wall(game, math), tx, ty);
-		point_1.x = (r * 8) + 530;
+
+		put_valid_pixel(game->pmlx_image, r + 500, math->lineO + y, color);
+		
+		/* point_1.x = (r * 2) + 500;
 		point_1.y = math->lineO + y;
 		point_1.color = color;
-		// point_2.x = (((r + 1) * 8) - 1) + 530;
-		point_2.x = ((r + 1) * 8) + 530;
+		point_2.x = ((r + 1) * 2) + 500;
 		point_2.y = math->lineO + y;
 		point_2.color = color;
-		bresenham(&point_1, &point_2, game->pmlx_image);
+		bresenham(&point_1, &point_2, game->pmlx_image); */
+
 		ty += ty_step;
 		y++;
 	}
-	// point_1.x = (r * 8) + 530;
-	// point_1.y = math->lineO;
-	// point_1.color = 0xFF0000FF;
-	// point_2.x = (((r + 1) * 8) - 1) + 530;
-	// point_2.y = math->lineO + math->lineH;
-	// point_2.color = 0xFF0000FF;
-	// fill_cell(&point_1, &point_2, game->pmlx_image);
 }

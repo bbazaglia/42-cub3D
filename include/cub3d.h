@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:12:59 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/16 11:35:31 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:26:37 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WIDTH 1024
-# define HEIGHT 512
+# define WIDTH 1300
+# define HEIGHT 600
 # define CELL 16
 # define BIT 4
-# define PI 3.14159265359
+# define PI 3.141592653589793
 # define DR 0.0174533
 # define HIGH_VALUE 1000000
 
@@ -91,7 +91,7 @@ typedef struct s_game
 	size_t			width;
 	mlx_t			*mlx;
 	mlx_image_t		*mlx_image;
-	mlx_image_t		*pmlx_image; // remove
+	mlx_image_t		*pmlx_image;
 	mlx_key_data_t	*keydata;
 	mlx_texture_t	*no_text;
 	mlx_texture_t	*so_text;
@@ -113,10 +113,10 @@ typedef struct s_math
 	double			yo;
 	double			hx;
 	double			hy;
-	double			distH;
+	double			dist_horiz;
 	double			vx;
 	double			vy;
-	double			distV;
+	double			dist_vert;
 	size_t			mx;
 	size_t			my;
 	double			ca;

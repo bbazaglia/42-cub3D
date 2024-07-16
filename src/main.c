@@ -6,38 +6,31 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:59:50 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/16 09:32:34 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:00:00 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_game game;
-    mlx_t		*mlx;
+	t_game		game;
+	mlx_t		*mlx;
 	mlx_image_t	*mlx_image;
 
-    parse_file(argc, argv[1], &game);
-
-    mlx = init_mlx();
-    mlx_image = init_image(mlx);
-    
+	parse_file(argc, argv[1], &game);
+	mlx = init_mlx();
+	mlx_image = init_image(mlx);
 	game.mlx = mlx;
 	game.mlx_image = mlx_image;
-    game.pmlx_image = NULL;
-
-    load_images(&game);
-    
+	game.pmlx_image = NULL;
+	load_images(&game);
 	render_map(&game); //remove
-
 	init_window(mlx, mlx_image);
-
-    mlx_key_hook(game.mlx, hook, &game);
+	mlx_key_hook(game.mlx, hook, &game);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
-
 }
 
 /* int main(int argc, char **argv)
@@ -68,7 +61,8 @@ int main(int argc, char **argv)
         i++;
     }
     printf("\nGAME DATA SCENE\n");
-    printf("player position: player[%d][%d]\nplayer dir: %c\n", game.player->mx, game.player->my, game.player->dir);
+    printf("player position: player[%d][%d]\nplayer dir: %c\n", game.player->mx,
+		game.player->my, game.player->dir);
     printf("print scene_data info\n");
     printf("size: %d\n", game.scene_data->size);
     printf("player_count: %d\n", game.scene_data->player_count);

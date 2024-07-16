@@ -44,18 +44,18 @@ void hook(mlx_key_data_t keydata, void *param)
 		if (keydata.key == MLX_KEY_A)
 		{
 			game->player->pa -= 0.1;
-			norm_angle(&game->player->pa);
-			// if (game->player->pa < 0)
-			// 	game->player->pa += 2 * PI;
+			// norm_angle(&game->player->pa);
+			if (game->player->pa < 0)
+				game->player->pa += 2 * PI;
 			game->player->pdx = cos(game->player->pa) * 5;
 			game->player->pdy = sin(game->player->pa) * 5;
 		}
 		if (keydata.key == MLX_KEY_D)
 		{
 			game->player->pa += 0.1;
-			norm_angle(&game->player->pa);
-			// if (game->player->pa > 2 * PI)
-			// 	game->player->pa -= 2 * PI;
+			// norm_angle(&game->player->pa);
+			if (game->player->pa > 2 * PI)
+				game->player->pa -= 2 * PI;
 			game->player->pdx = cos(game->player->pa) * 5;
 			game->player->pdy = sin(game->player->pa) * 5;
 		}
