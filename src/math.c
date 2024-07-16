@@ -32,6 +32,7 @@ void get_distance(t_game *game)
 	point_4.color = 0xFFFF00FF;
 
 	bresenham(&point_3, &point_4, game->pmlx_image);
+	render_background(game);
 
 	/* Get Distance */
 
@@ -78,12 +79,14 @@ void get_distance(t_game *game)
 		math.sx = math.hx;
 		math.sy = math.hy;
 		math.distS = math.distH;
+		math.is_horiz = true;
 
 		if (math.distH > math.distV)
 		{
 			math.sx = math.vx;
 			math.sy = math.vy;
 			math.distS = math.distV;
+			math.is_horiz = false;
 		}
 
 		/* just to print */

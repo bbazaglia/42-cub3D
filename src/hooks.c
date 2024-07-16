@@ -2,10 +2,10 @@
 
 bool check_collision(t_game *game, char key)
 {
-	double x;
-	double y;
-	size_t mx;
-	size_t my;
+	double x = 0;
+	double y = 0;
+	size_t mx = 0;
+	size_t my = 0;
 
 	if (key == 'w')
 	{
@@ -44,16 +44,18 @@ void hook(mlx_key_data_t keydata, void *param)
 		if (keydata.key == MLX_KEY_A)
 		{
 			game->player->pa -= 0.1;
-			if (game->player->pa < 0)
-				game->player->pa += 2 * PI;
+			norm_angle(&game->player->pa);
+			// if (game->player->pa < 0)
+			// 	game->player->pa += 2 * PI;
 			game->player->pdx = cos(game->player->pa) * 5;
 			game->player->pdy = sin(game->player->pa) * 5;
 		}
 		if (keydata.key == MLX_KEY_D)
 		{
 			game->player->pa += 0.1;
-			if (game->player->pa > 2 * PI)
-				game->player->pa -= 2 * PI;
+			norm_angle(&game->player->pa);
+			// if (game->player->pa > 2 * PI)
+			// 	game->player->pa -= 2 * PI;
 			game->player->pdx = cos(game->player->pa) * 5;
 			game->player->pdy = sin(game->player->pa) * 5;
 		}

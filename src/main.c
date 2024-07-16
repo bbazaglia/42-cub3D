@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:59:50 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/05 10:33:48 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/16 09:32:34 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ int main(int argc, char **argv)
 
     mlx = init_mlx();
     mlx_image = init_image(mlx);
-
+    
 	game.mlx = mlx;
 	game.mlx_image = mlx_image;
     game.pmlx_image = NULL;
+
+    load_images(&game);
+    
 	render_map(&game); //remove
 
 	init_window(mlx, mlx_image);

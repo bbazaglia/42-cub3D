@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:37:31 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/03 15:28:00 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:35:03 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ void end_mlx(t_game *game)
 
 void delete_images(t_game *game)
 {
-    mlx_delete_image(game->mlx, game->no_img);    
-    mlx_delete_image(game->mlx, game->so_img);
-    mlx_delete_image(game->mlx, game->we_img);
-    mlx_delete_image(game->mlx, game->ea_img);
-    mlx_delete_image(game->mlx, game->background);
     mlx_delete_texture(game->no_text);
     mlx_delete_texture(game->so_text);
     mlx_delete_texture(game->we_text);
