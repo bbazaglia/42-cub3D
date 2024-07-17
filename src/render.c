@@ -1,13 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/17 10:02:55 by bbazagli          #+#    #+#             */
+/*   Updated: 2024/07/17 11:57:50 by bbazagli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	put_valid_pixel(mlx_image_t *mlx_image, int x, int y, uint32_t color)
+static void	set_wall_attributes(t_raycast *raycast, t_game *game)
 {
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-		mlx_put_pixel(mlx_image, x, y, color);
+	raycast->corrected_angle = game->player->angle - raycast->ray_angle;
+	norm_angle(&raycast->corrected_angle);
+	raycast->shortest_dist = cos(raycast->corrected_angle) \
+		* raycast->shortest_dist;
+	raycast->line_height = (HEIGHT * CELL) / raycast->shortest_dist;
+	raycast->line_offset = (HEIGHT - raycast->line_height) / 2;
 }
 
-/* c = T[(int)(ty*32) + (int)tx] */
-uint32_t	texture_to_rgb(mlx_texture_t *texture, int x, int y)
+static uint32_t	texture_to_rgb(mlx_texture_t *texture, int x, int y)
 {
 	uint8_t	*rgb;
 
@@ -15,126 +30,72 @@ uint32_t	texture_to_rgb(mlx_texture_t *texture, int x, int y)
 	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | rgb[3]);
 }
 
-mlx_texture_t	*get_wall(t_game *game, t_math *math)
+static mlx_texture_t	*get_wall(t_game *game, t_raycast *raycast)
 {
-	if (math->is_horiz)
+	if (raycast->is_horizontal)
 	{
-		if (math->ra > PI && math->ra < 2 * PI)
+		if (raycast->ray_angle > PI && raycast->ray_angle < 2 * PI)
 			return (game->no_text);
 		else
 			return (game->so_text);
 	}
 	else
 	{
-		if (math->ra < PI / 2 || math->ra > 3 * PI / 2)
+		if (raycast->ray_angle < PI / 2 || raycast->ray_angle > 3 * PI / 2)
 			return (game->ea_text);
 		else
 			return (game->we_text);
 	}
 }
 
-void	fill_cell(t_coord *point_1, t_coord *point_2, mlx_image_t *mlx_image)
-{
-	int			x;
-	int			y;
-	uint32_t	color;
-
-	x = point_1->x;
-	y = point_1->y;
-	color = point_1->color;
-	while (y <= point_2->y)
-	{
-		x = point_1->x;
-		while (x <= point_2->x)
-		{
-			put_valid_pixel(mlx_image, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	render_map(t_game *game)
-{
-	size_t	i;
-	size_t	j;
-	t_coord	point_1;
-	t_coord	point_2;
-
-	i = 0;
-	while (i < game->height)
-	{
-		j = 0;
-		while (j < game->width)
-		{
-			point_1.x = CELL * j;
-			point_1.y = CELL * i;
-			point_2.x = (CELL * j) + (CELL - 1);
-			point_2.y = (CELL * i) + (CELL - 1);
-			if (game->map[i][j] == '1')
-			{
-				point_1.color = 0xffffffff;
-				point_2.color = 0xffffffff;
-			}
-			else
-			{
-				point_1.color = 0x00000000;
-				point_2.color = 0x00000000;
-			}
-			fill_cell(&point_1, &point_2, game->mlx_image);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_scene(t_math *math, t_game *game, int r)
+void	draw_wall(t_raycast *raycast, t_game *game, int r)
 {
 	int			y;
-	double		tx;
-	double		ty;
-	double		ty_step;
+	double		texture_x_coord;
+	double		texture_y_coord;
+	double		texture_y_step;
 	uint32_t	color;
-	// t_coord		point_1;
-	// t_coord		point_2;
 
-	math->ca = game->player->pa - math->ra;
-	norm_angle(&math->ca);
-	math->distS = cos(math->ca) * math->distS;
-	math->lineH = (HEIGHT * CELL) / math->distS;
-	math->lineO = (HEIGHT - math->lineH) / 2;
-
-	/* Texture */
-	ty_step = game->tex_height / math->lineH;
-	ty = 0;
-	if (math->is_horiz) // point in horizontal line
-	{
-		tx = (int)(math->sx * (game->tex_width / CELL)) % game->tex_width;
-		// if (math->ra < PI && math->ra > 0)
-		// 	tx = (game->tex_width - 1) - tx;
-	}
-	else // point in vertical line
-	{
-		tx = (int)(math->sy * (game->tex_height / CELL)) % game->tex_height;
-		// if (math->ra > (PI / 2) && math->ra < (3 * PI / 2))
-		// 	tx = (game->tex_width - 1) - tx;
-	}
+	set_wall_attributes(raycast, game);
+	texture_y_step = game->tex_height / raycast->line_height;
+	texture_y_coord = 0;
+	if (raycast->is_horizontal)
+		texture_x_coord = (int)(raycast->shortest_hit.x \
+		* (game->tex_width / CELL)) % game->tex_width;
+	else
+		texture_x_coord = (int)(raycast->shortest_hit.y \
+		* (game->tex_height / CELL)) % game->tex_height;
 	y = 0;
-	while (y < math->lineH)
+	while (y < raycast->line_height)
 	{
-		color = texture_to_rgb(get_wall(game, math), tx, ty);
-
-		put_valid_pixel(game->pmlx_image, r + 500, math->lineO + y, color);
-		
-		/* point_1.x = (r * 2) + 500;
-		point_1.y = math->lineO + y;
-		point_1.color = color;
-		point_2.x = ((r + 1) * 2) + 500;
-		point_2.y = math->lineO + y;
-		point_2.color = color;
-		bresenham(&point_1, &point_2, game->pmlx_image); */
-
-		ty += ty_step;
+		color = texture_to_rgb(get_wall(game, raycast), \
+			texture_x_coord, texture_y_coord);
+		put_valid_pixel(game->player_image, r + 500, \
+			raycast->line_offset + y, color);
+		texture_y_coord += texture_y_step;
 		y++;
+	}
+}
+
+void	render_background(t_game *game)
+{
+	size_t	x;
+	size_t	y;
+
+	x = 500;
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < HEIGHT)
+		{
+			if (y < (HEIGHT / 2))
+				put_valid_pixel(game->mlx_image, x, y,
+					game->scene_data->ceiling_color);
+			else
+				put_valid_pixel(game->mlx_image, x, y,
+					game->scene_data->floor_color);
+			y++;
+		}
+		x++;
 	}
 }

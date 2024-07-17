@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bresenham.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/17 10:39:42 by bbazagli          #+#    #+#             */
+/*   Updated: 2024/07/17 10:39:45 by bbazagli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	check_delta_to_move_variable(int d, int *variable)
@@ -35,7 +47,8 @@ void	slope_lower_1(t_bres *aux, t_coord *point, mlx_image_t *mlx_image)
 	}
 }
 
-void	slope_bigger_equal_1(t_bres *aux, t_coord *point, mlx_image_t *mlx_image)
+void	slope_bigger_equal_1(t_bres *aux, t_coord *point,
+		mlx_image_t *mlx_image)
 {
 	int			x;
 	int			y;

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 13:12:59 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/16 17:26:37 by bbazagli         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -34,7 +22,13 @@
 
 /*-------------------STRUCTS-------------------------------------------------*/
 
-// coordinates define where a ray starts and where it intersects with objects
+typedef enum e_mlx_action
+{
+	INIT,
+	NEW_IMAGE,
+	IMAGE_TO_WINDOW,
+}					t_mlx_action;
+
 typedef struct s_coord
 {
 	double			x;
@@ -42,25 +36,21 @@ typedef struct s_coord
 	uint32_t		color;
 }					t_coord;
 
-// vectors define the direction and movement of the ray through the scene
-// typedef struct s_vector
-// {
-// 	double x;
-// 	double y;
-// } t_vector;
+typedef struct s_vector
+{
+	double			x;
+	double			y;
+}					t_vector;
 
 typedef struct s_player
 {
-	int				mx;
-	int				my;
-	double			px;
-	double			py;
-	char			dir;
-	double			dirx;
-	double			diry;
-	double			pa;
-	double			pdx;
-	double			pdy;
+	double			angle;
+	int				map_x_coord;
+	int				map_y_coord;
+	char			facing_dir;
+	t_vector		dir_vector;
+	t_vector		pos;
+	t_vector		delta;
 }					t_player;
 
 typedef struct s_scene
@@ -77,8 +67,8 @@ typedef struct s_scene
 	char			*south_path;
 	char			*west_path;
 	char			*east_path;
-	uint32_t		c_color;
-	uint32_t		f_color;
+	uint32_t		ceiling_color;
+	uint32_t		floor_color;
 }					t_scene;
 
 typedef struct s_game
@@ -91,7 +81,7 @@ typedef struct s_game
 	size_t			width;
 	mlx_t			*mlx;
 	mlx_image_t		*mlx_image;
-	mlx_image_t		*pmlx_image;
+	mlx_image_t		*player_image;
 	mlx_key_data_t	*keydata;
 	mlx_texture_t	*no_text;
 	mlx_texture_t	*so_text;
@@ -102,31 +92,26 @@ typedef struct s_game
 	int				tex_height;
 }					t_game;
 
-typedef struct s_math
+typedef struct s_raycast
 {
-	double			aTan;
-	double			nTan;
-	double			ra;
-	double			rx;
-	double			ry;
-	double			xo;
-	double			yo;
-	double			hx;
-	double			hy;
-	double			dist_horiz;
-	double			vx;
-	double			vy;
-	double			dist_vert;
-	size_t			mx;
-	size_t			my;
-	double			ca;
-	double			sx;
-	double			sy;
-	double			distS;
-	double			lineH;
-	double			lineO;
-	bool			is_horiz;
-}					t_math;
+	double			tan;
+	double			rev_tan;
+	double			ray_angle;
+	t_vector		ray_pos;
+	t_vector		step;
+	t_vector		horiz_hit;
+	double			horiz_dist;
+	t_vector		vert_hit;
+	double			vert_dist;
+	size_t			map_x;
+	size_t			map_y;
+	double			corrected_angle;
+	t_vector		shortest_hit;
+	double			shortest_dist;
+	double			line_height;
+	double			line_offset;
+	bool			is_horizontal;
+}					t_raycast;
 
 typedef struct s_bres
 {
@@ -137,35 +122,27 @@ typedef struct s_bres
 	int				p;
 }					t_bres;
 
-/*-------------------PARSING AND VALIDATION----------------------------------*/
+/*-------------------VALIDATE MAP--------------------------------------------*/
+void				check_format(char *argv);
+void				validate_map(t_game *game);
+void				check_data(t_game *game);
+int					check_misconfiguration(t_game *game);
+void				check_player(t_game *game);
+
+/*-------------------PARSING-------------------------------------------------*/
 void				parse_file(int argc, char *argv, t_game *game);
 void				read_scene(t_game *game, char *argv);
-int					check_misconfiguration(t_game *game);
-void				check_rgb(char *line, int *cardinal, uint32_t *color);
-void				check_data(t_game *game);
-void				check_path(char *line, int *cardinal, char **path);
 void				init_data(t_game *game);
 void				init_player(t_game *game, char **map);
 void				read_map(t_game *game, int row);
-void				validate_map(t_game *game);
 char				*fill_spaces(char *cur_line, t_game *game);
 void				get_num_lines(char *argv, t_scene *scene_data);
-void				check_format(char *argv);
-void				check_characters(char *line);
-void				check_boundaries(t_game *game, char *line, int row);
 void				init_pos(t_game *game);
-mlx_t				*init_mlx(void);
-mlx_image_t			*init_image(mlx_t *mlx);
-void				init_window(mlx_t *mlx, mlx_image_t *mlx_image);
-
-/*-------------------RAYCASTING----------------------------------------------*/
 
 /*-------------------HOOKS AND MOVES-----------------------------------------*/
 void				hook(mlx_key_data_t keydata, void *param);
 void				move_vertical(t_game *game, int direction);
 void				move_horizontal(t_game *game, int direction);
-double				fix_ang(double a);
-
 bool				check_collision(t_game *game, char key);
 
 /*-------------------LOAD TEXTURES AND PLACE IMAGES--------------------------*/
@@ -177,22 +154,11 @@ void				game_over(char *msg);
 void				end_mlx(t_game *game);
 void				delete_images(t_game *game);
 
-/*-------------------UTILS---------------------------------------------------*/
-bool				is_empty_line(char *line);
-int32_t				ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-
 /*-------------------RENDER---------------------------------------------------*/
-void				put_valid_pixel(mlx_image_t *mlx_image, int x, int y,
-						uint32_t color);
-void				fill_cell(t_coord *point_1, t_coord *point_2,
-						mlx_image_t *mlx_image);
-void				render_map(t_game *game);
-void				draw_scene(t_math *math, t_game *game, int r);
-uint32_t			texture_to_rgb(mlx_texture_t *texture, int x, int y);
-mlx_texture_t		*get_wall(t_game *game, t_math *math);
+void				draw_wall(t_raycast *raycast, t_game *game, int r);
+void				render_background(t_game *game);
 
-//bresenham
-
+/*-------------------BRESENHAM------------------------------------------------*/
 void				check_delta_to_move_variable(int d, int *variable);
 void				slope_lower_1(t_bres *aux, t_coord *point,
 						mlx_image_t *mlx_image);
@@ -201,13 +167,33 @@ void				slope_bigger_equal_1(t_bres *aux, t_coord *point,
 void				bresenham(t_coord *point_1, t_coord *point_2,
 						mlx_image_t *mlx_image);
 
-/*-------------------MATH---------------------------------------------------*/
+/*-------------------RAYCAST-------------------------------------------------*/
 void				get_distance(t_game *game);
+void				find_shortest_distance(t_raycast *raycast);
+void				initialize_raycast(t_raycast *raycast, t_vector *vector,
+						double dist);
 void				norm_angle(double *angle);
 double				dist(int ax, int ay, int bx, int by);
-void				find_horiz_ray_dim(t_math *math, t_game *game);
-void				find_vert_ray_dim(t_math *math, t_game *game);
-void				find_horiz_ray_limit(t_math *math, t_game *game);
-void				find_vert_ray_limit(t_math *math, t_game *game);
+void	calculate_and_update_raycast(t_raycast *raycast,
+									t_game *game,
+									int ray);
+void				find_horiz_ray_pos(t_raycast *raycast, t_game *game);
+void				find_vert_ray_pos(t_raycast *raycast, t_game *game);
+void				find_horiz_ray_limit(t_raycast *raycast, t_game *game);
+void				find_vert_ray_limit(t_raycast *raycast, t_game *game);
 
+/*-------------------MINIMAP-------------------------------------------------*/
+void				draw_player_square(t_game *game);
+void				draw_player_direction(t_game *game);
+void				print_ray(t_game *game, t_raycast *raycast);
+void				render_minimap(t_game *game);
+
+/*-------------------UTILS---------------------------------------------------*/
+bool				is_empty_line(char *line);
+int32_t				ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+void				fill_cell(t_coord *point_1, t_coord *point_2,
+						mlx_image_t *mlx_image);
+void				put_valid_pixel(mlx_image_t *mlx_image, int x, int y,
+						uint32_t color);
+void				safe_mlx_action(int action, t_game *game);
 #endif

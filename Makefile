@@ -6,7 +6,7 @@
 #    By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/05 18:26:17 by bbazagli         ###   ########.fr        #
+#    Updated: 2024/07/17 11:33:49 by bbazagli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBFT = ./LIBFT/libft.a
 
 SRC = main.c \
       parse.c \
-      validate_scene.c \
+      check_misconfiguration.c \
       validate_map.c \
       utils.c \
       init.c \
@@ -34,7 +34,9 @@ SRC = main.c \
       hooks.c \
       game_over.c \
 	  render.c \
-	  math.c \
+	  minimap.c \
+	  raycast.c \
+	  raycast_math.c \
 	  bresenham.c \
 
 OBJ = obj

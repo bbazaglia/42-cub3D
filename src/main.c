@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:59:50 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/16 13:00:00 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:40:49 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,17 @@
 int	main(int argc, char **argv)
 {
 	t_game		game;
-	mlx_t		*mlx;
-	mlx_image_t	*mlx_image;
 
 	parse_file(argc, argv[1], &game);
-	mlx = init_mlx();
-	mlx_image = init_image(mlx);
-	game.mlx = mlx;
-	game.mlx_image = mlx_image;
-	game.pmlx_image = NULL;
+    safe_mlx_action(INIT, &game);
+    safe_mlx_action(NEW_IMAGE, &game);
+	game.player_image = NULL;
 	load_images(&game);
-	render_map(&game); //remove
-	init_window(mlx, mlx_image);
+	render_minimap(&game); //remove
+    safe_mlx_action(IMAGE_TO_WINDOW, &game);
 	mlx_key_hook(game.mlx, hook, &game);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	mlx_loop(game.mlx);
+	mlx_terminate(game.mlx);
 	return (EXIT_SUCCESS);
 }
 
@@ -76,7 +72,7 @@ int	main(int argc, char **argv)
     printf("south path: %s\n", game.scene_data->south_path);
     printf("west path: %s\n", game.scene_data->west_path);
     printf("east path: %s\n", game.scene_data->east_path);
-    printf("ceiling color: %u\n", game.scene_data->c_color);
-    printf("floor color: %u\n", game.scene_data->f_color);
+    printf("ceiling color: %u\n", game.scene_data->ceiling_color);
+    printf("floor color: %u\n", game.scene_data->floor_color);
  
 } */

@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:41:37 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/05 18:22:59 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:00:21 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ void	read_scene(t_game *game, char *argv)
 {
 	int	fd;
 	int	row;
-	int len;
+	int	len;
 	
 	init_data(game);
 	get_num_lines(argv, game->scene_data);
 	game->scene = allocate_mem(game->scene_data->size + 1, sizeof(char *));
-	if (game->scene == NULL)
-		game_over("Error: Memory allocation failed\n");
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		game_over("Error: Error opening .cub file\n");
@@ -60,7 +58,7 @@ void	read_scene(t_game *game, char *argv)
 
 void	read_map(t_game *game, int row)
 {
-	int i;
+	int	i;
 
 	game->height = game->scene_data->size - row;
 	game->width = 0;
@@ -102,3 +100,26 @@ void	get_num_lines(char *argv, t_scene *scene_data)
 	scene_data->size = num_lines;
 }
 
+char	*fill_spaces(char *cur_line, t_game *game)
+{
+	size_t	i;
+	char	*new_line;
+
+	i = 0;
+	new_line = allocate_mem(game->width + 1, sizeof(char));
+	while (cur_line[i])
+	{
+		if (cur_line[i] == ' ')
+			new_line[i] = '1';
+		else
+			new_line[i] = cur_line[i];
+		i++;
+	}
+	while (i < game->width)
+	{
+		new_line[i] = '1';
+		i++;
+	}
+	new_line[i] = '\0';
+	return (new_line);
+}
