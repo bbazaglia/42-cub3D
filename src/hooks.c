@@ -3,121 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:39:51 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/17 11:48:46 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:18:47 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	check_collision(t_game *game, char key)
+void hook(mlx_key_data_t keydata, void *param)
 {
-	double	x;
-	double	y;
-	size_t	mx;
-	size_t	my;
-
-	x = 0;
-	y = 0;
-	mx = 0;
-	my = 0;
-	if (key == 'w')
-	{
-		x = game->player->pos.x + game->player->delta.x;
-		y = game->player->pos.y + game->player->delta.y;
-	}
-	else if (key == 's')
-	{
-		x = game->player->pos.x - game->player->delta.x;
-		y = game->player->pos.y - game->player->delta.y;
-	}
-	else if (key == 'a')
-	{
-		x = game->player->pos.x - 1.5;
-		y = game->player->pos.y;
-	}
-	else if (key == 'd')
-	{
-		x = game->player->pos.x + 1.5;
-		y = game->player->pos.y;
-	}
-	mx = abs((int)(x) >> BIT);
-	my = abs((int)(y) >> BIT);
-	if (mx < game->width && my < game->height && game->map[my][mx] == '0')
-		return (false);
-	return (true);
-}
-
-void	hook(mlx_key_data_t keydata, void *param)
-{
-	bool	collision;
-	t_game	*game;
+	t_game *game;
 
 	game = param;
-	collision = true;
 	if (keydata.action == MLX_PRESS)
 	{
 		if (keydata.key == MLX_KEY_ESCAPE)
-		{
-			game_over("Game Over");
-			end_mlx(game);
-		}
+			close_window(game);
 		if (keydata.key == MLX_KEY_LEFT)
-		{
-			game->player->angle -= 0.1;
-			if (game->player->angle < 0)
-				game->player->angle += 2 * PI;
-			game->player->delta.x = cos(game->player->angle) * 5;
-			game->player->delta.y = sin(game->player->angle) * 5;
-		}
+			rotate_key_left(game);
 		if (keydata.key == MLX_KEY_RIGHT)
-		{
-			game->player->angle += 0.1;
-			if (game->player->angle > 2 * PI)
-				game->player->angle -= 2 * PI;
-			game->player->delta.x = cos(game->player->angle) * 5;
-			game->player->delta.y = sin(game->player->angle) * 5;
-		}
+			rotate_key_right(game);
 		if (keydata.key == MLX_KEY_W)
-		{
-			collision = check_collision(game, 'w');
-			if (!collision)
-			{
-				if(!game->player->delta.y)
-					game->player->delta.y = 1.;
-				game->player->pos.x += game->player->delta.x;
-				game->player->pos.y += game->player->delta.y;
-			}
-		}
+			move_key_w(game);
 		if (keydata.key == MLX_KEY_S)
-		{
-			collision = check_collision(game, 's');
-			if (!collision)
-			{
-				if(!game->player->delta.y)
-					game->player->delta.y = 1.;
-				game->player->pos.x -= game->player->delta.x;
-				game->player->pos.y -= game->player->delta.y;
-			}
-		}
+			move_key_s(game);
 		if (keydata.key == MLX_KEY_A)
-		{
-			collision = check_collision(game, 'a');
-			if (!collision)
-			{
-				game->player->pos.x -= 1.5;
-			}
-		}
+			move_key_a(game);
 		if (keydata.key == MLX_KEY_D)
-		{
-			collision = check_collision(game, 'd');
-			if (!collision)
-			{
-				game->player->pos.x += 1.5;
-			}
-		}
+			move_key_d(game);
 		if (game->player_image)
 			mlx_delete_image(game->mlx, game->player_image);
 		game->player_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
@@ -126,16 +41,27 @@ void	hook(mlx_key_data_t keydata, void *param)
 	}
 }
 
-// void	move_vertical(t_game *game, int direction)
-// {
-// 	game->player->pos.x += game->player->delta.x * 5 * direction;
-// 	game->player->pos.y += game->player->delta.y * 5 * direction;
-// }
+void close_window(t_game *game)
+{
+	game_over("Game Over");
+	end_mlx(game);
+}
 
-// void	move_horizontal(t_game *game, int direction)
-// {
-// 	game->player->angle += 5 * direction;
-// 	game->player->delta.x = cos(game->player->angle);
-// 	game->player->delta.y = -sin(game->player->angle);
-// }
+void rotate_key_left(t_game *game)
+{
+	game->player->angle -= 0.1;
+	if (game->player->angle < 0)
+		game->player->angle += PI_360;
+	game->player->delta.x = cos(game->player->angle) * 5;
+	game->player->delta.y = sin(game->player->angle) * 5;
+}
+
+void rotate_key_right(t_game *game)
+{
+	game->player->angle += 0.1;
+	if (game->player->angle > PI_360)
+		game->player->angle -= PI_360;
+	game->player->delta.x = cos(game->player->angle) * 5;
+	game->player->delta.y = sin(game->player->angle) * 5;
+}
 

@@ -6,7 +6,7 @@
 #    By: string <string>                            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/19 12:41:44 by string           ###   ########.fr        #
+#    Updated: 2024/07/19 16:49:56 by string           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC = main.c \
       init.c \
       load_images.c \
       hooks.c \
+	  hooks_utils.c \
       game_over.c \
 	  render.c \
 	  minimap.c \
@@ -56,12 +57,12 @@ libmlx:
 libft:
 	@make -C ./LIBFT
 
-val: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/validmap.cub
-
 $(OBJ)/%.o: %.c
 	@mkdir -p $(OBJ)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<)\n"
+
+val: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/validmap.cub
 
 clean:
 	@make -C ./LIBFT clean --silent

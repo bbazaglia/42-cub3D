@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:46:23 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/17 11:51:16 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:06:41 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	print_ray(t_game *game, t_raycast *raycast)
 	t_coord	ray_end;
 
 	ray_start.x = game->player->pos.x;
-	ray_start.y = game->player->pos.y;
-	ray_start.color = 0xFF0000FF;
-	ray_end.x = raycast->shortest_hit.x;
-	ray_end.y = raycast->shortest_hit.y;
-	ray_end.color = 0xFF0000FF;
-	bresenham(&ray_start, &ray_end, game->player_image);
+    ray_start.y = game->player->pos.y;
+    ray_start.color = 0xFF0000FF;
+    ray_end.x = raycast->shortest_hit.x;
+    ray_end.y = raycast->shortest_hit.y;
+    ray_end.color = 0xFF0000FF;
+    bresenham(&ray_start, &ray_end, game->player_image);
 }
 
 static void	color_minimap(t_coord *start, t_coord *end, char map,

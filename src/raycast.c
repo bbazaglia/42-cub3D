@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:41:00 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/17 15:42:05 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:30:21 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	get_distance(t_game *game)
 {
 	t_raycast	raycast;
 	int			ray;
-
+	
 	draw_player_square(game);
 	draw_player_direction(game);
 	render_background(game);
-	raycast.ray_angle = game->player->angle - (DR * 30);
+	raycast.ray_angle = game->player->angle - (CONV_DEG_TO_RAD * 30);
 	norm_angle(&raycast.ray_angle);
 	ray = 0;
 	while (ray < 800)
@@ -59,9 +59,9 @@ void	initialize_raycast(t_raycast *raycast, t_vector *vector, double *dist)
 void	norm_angle(double *angle)
 {
 	if (*angle < 0)
-		*angle += (2 * PI);
-	if (*angle > (2 * PI))
-		*angle -= (2 * PI);
+		*angle += PI_360;
+	if (*angle > PI_360)
+		*angle -= PI_360;
 }
 
 double	dist(int ax, int ay, int bx, int by)

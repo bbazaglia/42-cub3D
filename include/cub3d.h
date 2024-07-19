@@ -16,10 +16,13 @@
 #define HEIGHT 600
 #define CELL 16
 #define BIT 4
-#define PI 3.141592653589793
-#define DR 0.0174533
+#define CONV_DEG_TO_RAD 0.0174533
 #define HIGH_VALUE 1000000
 #define PRECISION 1e-9
+#define PI 3.141592653589793
+#define PI_90 1.570796326794897
+#define PI_270 4.712388980384690
+#define PI_360 6.283185307179586
 
 /*-------------------STRUCTS-------------------------------------------------*/
 
@@ -141,10 +144,15 @@ void get_num_lines(char *argv, t_scene *scene_data);
 void init_pos(t_game *game);
 
 /*-------------------HOOKS AND MOVES-----------------------------------------*/
+void close_window(t_game *game);
 void hook(mlx_key_data_t keydata, void *param);
-// void				move_vertical(t_game *game, int direction);
-// void				move_horizontal(t_game *game, int direction);
-bool check_collision(t_game *game, char key);
+void rotate_key_left(t_game *game);
+void rotate_key_right(t_game *game);
+bool check_collision(t_game *game, double x, double y);
+void move_key_w(t_game *game);
+void move_key_s(t_game *game);
+void move_key_a(t_game *game);
+void move_key_d(t_game *game);
 
 /*-------------------LOAD TEXTURES AND PLACE IMAGES--------------------------*/
 void load_images(t_game *game);

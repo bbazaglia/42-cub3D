@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:39:35 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/17 13:05:16 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:28:00 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	init_data(t_game *game)
 void	init_pos(t_game *game)
 {
 	if (game->player->facing_dir == 'N')
-		game->player->angle = 3 * PI / 2;
+		game->player->angle = PI_270;
 	else if (game->player->facing_dir == 'S')
-		game->player->angle = PI / 2;
+		game->player->angle = PI_90;
 	else if (game->player->facing_dir == 'E')
 		game->player->angle = 0;
 	else if (game->player->facing_dir == 'W')
