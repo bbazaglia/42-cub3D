@@ -6,7 +6,7 @@
 /*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:39:51 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 17:18:47 by string           ###   ########.fr       */
+/*   Updated: 2024/07/19 18:12:52 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void hook(mlx_key_data_t keydata, void *param)
 	if (keydata.action == MLX_PRESS)
 	{
 		if (keydata.key == MLX_KEY_ESCAPE)
-			close_window(game);
+			mlx_close_window(game->mlx);
 		if (keydata.key == MLX_KEY_LEFT)
 			rotate_key_left(game);
 		if (keydata.key == MLX_KEY_RIGHT)
@@ -33,18 +33,20 @@ void hook(mlx_key_data_t keydata, void *param)
 			move_key_a(game);
 		if (keydata.key == MLX_KEY_D)
 			move_key_d(game);
-		if (game->player_image)
-			mlx_delete_image(game->mlx, game->player_image);
-		game->player_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-		mlx_image_to_window(game->mlx, game->player_image, 0, 0);
+		// if (game->player_image)
+		// 	mlx_delete_image(game->mlx, game->player_image);
+		mlx_delete_image(game->mlx, game->mlx_image);
+		game->mlx_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+		mlx_image_to_window(game->mlx, game->mlx_image, 0, 0);
+		render_minimap(game);
 		get_distance(game);
 	}
 }
 
 void close_window(t_game *game)
 {
-	game_over("Game Over");
 	end_mlx(game);
+	game_over("Game Over");
 }
 
 void rotate_key_left(t_game *game)

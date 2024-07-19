@@ -6,7 +6,7 @@
 /*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:59:50 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 13:59:56 by string           ###   ########.fr       */
+/*   Updated: 2024/07/19 18:11:59 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ int	main(int argc, char **argv)
 	parse_file(argc, argv[1], &game);
     safe_mlx_action(INIT, &game);
     safe_mlx_action(NEW_IMAGE, &game);
-	game.player_image = NULL;
+	// game.player_image = NULL;
 	load_images(&game);
 	render_minimap(&game); //remove
+    get_distance(&game);
     safe_mlx_action(IMAGE_TO_WINDOW, &game);
 	mlx_key_hook(game.mlx, hook, &game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
+    end_mlx(&game);
+    game_over("END");
 	return (EXIT_SUCCESS);
 }
 

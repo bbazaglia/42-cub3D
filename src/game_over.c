@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_over.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:37:31 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/16 11:35:03 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:15:21 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void game_over(char *msg)
 
 void end_mlx(t_game *game)
 {
-    // delete_images(game);
-    mlx_close_window(game->mlx);
-	mlx_terminate(game->mlx);
+    delete_images(game);
+    // mlx_delete_image(game->mlx, game->mlx_image);
+    // mlx_close_window(game->mlx);
+	// mlx_terminate(game->mlx);
 }
 
 void delete_images(t_game *game)

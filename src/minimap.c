@@ -6,7 +6,7 @@
 /*   By: string <string>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:46:23 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 16:06:41 by string           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:28:26 by string           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_player_square(t_game *game)
 	player_square_end.x = game->player->pos.x + 5;
 	player_square_end.y = game->player->pos.y + 5;
 	player_square_end.color = 0xFFFF00FF;
-	fill_cell(&player_square_start, &player_square_end, game->player_image);
+	fill_cell(&player_square_start, &player_square_end, game->mlx_image);
 }
 
 void	draw_player_direction(t_game *game)
@@ -41,7 +41,7 @@ void	draw_player_direction(t_game *game)
 	direction.x = game->player->dir_vector.x;
 	direction.y = game->player->dir_vector.y;
 	direction.color = 0xFFFF00FF;
-	bresenham(&player_center_pos, &direction, game->player_image);
+	bresenham(&player_center_pos, &direction, game->mlx_image);
 }
 
 void	print_ray(t_game *game, t_raycast *raycast)
@@ -55,7 +55,7 @@ void	print_ray(t_game *game, t_raycast *raycast)
     ray_end.x = raycast->shortest_hit.x;
     ray_end.y = raycast->shortest_hit.y;
     ray_end.color = 0xFF0000FF;
-    bresenham(&ray_start, &ray_end, game->player_image);
+    bresenham(&ray_start, &ray_end, game->mlx_image);
 }
 
 static void	color_minimap(t_coord *start, t_coord *end, char map,
