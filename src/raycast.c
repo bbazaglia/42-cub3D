@@ -23,7 +23,7 @@ void	get_distance(t_game *game)
 	raycast.ray_angle = game->player->angle - (DR * 30);
 	norm_angle(&raycast.ray_angle);
 	ray = 0;
-	while (ray < 400)
+	while (ray < 800)
 	{
 		calculate_and_update_raycast(&raycast, game, ray);
 		ray++;

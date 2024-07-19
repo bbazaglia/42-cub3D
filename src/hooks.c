@@ -33,6 +33,16 @@ bool	check_collision(t_game *game, char key)
 		x = game->player->pos.x - game->player->delta.x;
 		y = game->player->pos.y - game->player->delta.y;
 	}
+	else if (key == 'a')
+	{
+		x = game->player->pos.x - 1.5;
+		y = game->player->pos.y;
+	}
+	else if (key == 'd')
+	{
+		x = game->player->pos.x + 1.5;
+		y = game->player->pos.y;
+	}
 	mx = abs((int)(x) >> BIT);
 	my = abs((int)(y) >> BIT);
 	if (mx < game->width && my < game->height && game->map[my][mx] == '0')
@@ -54,7 +64,7 @@ void	hook(mlx_key_data_t keydata, void *param)
 			game_over("Game Over");
 			end_mlx(game);
 		}
-		if (keydata.key == MLX_KEY_A)
+		if (keydata.key == MLX_KEY_LEFT)
 		{
 			game->player->angle -= 0.1;
 			if (game->player->angle < 0)
@@ -62,7 +72,7 @@ void	hook(mlx_key_data_t keydata, void *param)
 			game->player->delta.x = cos(game->player->angle) * 5;
 			game->player->delta.y = sin(game->player->angle) * 5;
 		}
-		if (keydata.key == MLX_KEY_D)
+		if (keydata.key == MLX_KEY_RIGHT)
 		{
 			game->player->angle += 0.1;
 			if (game->player->angle > 2 * PI)
@@ -75,6 +85,8 @@ void	hook(mlx_key_data_t keydata, void *param)
 			collision = check_collision(game, 'w');
 			if (!collision)
 			{
+				if(!game->player->delta.y)
+					game->player->delta.y = 1.;
 				game->player->pos.x += game->player->delta.x;
 				game->player->pos.y += game->player->delta.y;
 			}
@@ -84,8 +96,26 @@ void	hook(mlx_key_data_t keydata, void *param)
 			collision = check_collision(game, 's');
 			if (!collision)
 			{
+				if(!game->player->delta.y)
+					game->player->delta.y = 1.;
 				game->player->pos.x -= game->player->delta.x;
 				game->player->pos.y -= game->player->delta.y;
+			}
+		}
+		if (keydata.key == MLX_KEY_A)
+		{
+			collision = check_collision(game, 'a');
+			if (!collision)
+			{
+				game->player->pos.x -= 1.5;
+			}
+		}
+		if (keydata.key == MLX_KEY_D)
+		{
+			collision = check_collision(game, 'd');
+			if (!collision)
+			{
+				game->player->pos.x += 1.5;
 			}
 		}
 		if (game->player_image)

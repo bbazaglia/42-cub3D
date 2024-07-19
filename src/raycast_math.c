@@ -25,13 +25,13 @@ void	calculate_and_update_raycast(t_raycast *raycast, t_game *game, int ray)
 	find_shortest_distance(raycast);
 	print_ray(game, raycast);
 	draw_wall(raycast, game, ray);
-	raycast->ray_angle += (0.15 * DR);
+	raycast->ray_angle += (0.075 * DR);
 	norm_angle(&raycast->ray_angle);
 }
 
 void	find_horiz_ray_pos(t_raycast *raycast, t_game *game)
 {
-	if (raycast->ray_angle == 0 || raycast->ray_angle == PI)
+	if(compare_angles(raycast->ray_angle, 0) || compare_angles(raycast->ray_angle, PI))
 	{
 		raycast->ray_pos.x = game->player->pos.x;
 		raycast->ray_pos.y = game->player->pos.y;
@@ -56,7 +56,7 @@ void	find_horiz_ray_pos(t_raycast *raycast, t_game *game)
 
 void	find_vert_ray_pos(t_raycast *raycast, t_game *game)
 {
-	if ((raycast->ray_angle == (PI / 2)) || (raycast->ray_angle == 3 * (PI / 2)))
+	if(compare_angles(raycast->ray_angle, PI / 2) || compare_angles(raycast->ray_angle, (3*PI/2)))
 	{
 		raycast->ray_pos.x = game->player->pos.x;
 		raycast->ray_pos.y = game->player->pos.y;

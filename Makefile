@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+         #
+#    By: string <string>                            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/17 11:33:49 by bbazagli         ###   ########.fr        #
+#    Updated: 2024/07/19 12:41:44 by string           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC = main.c \
 	  raycast.c \
 	  raycast_math.c \
 	  bresenham.c \
+	  raycast_utils.c \
 
 OBJ = obj
 
