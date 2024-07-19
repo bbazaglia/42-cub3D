@@ -141,13 +141,12 @@ void				init_pos(t_game *game);
 
 /*-------------------HOOKS AND MOVES-----------------------------------------*/
 void				hook(mlx_key_data_t keydata, void *param);
-void				move_vertical(t_game *game, int direction);
-void				move_horizontal(t_game *game, int direction);
+// void				move_vertical(t_game *game, int direction);
+// void				move_horizontal(t_game *game, int direction);
 bool				check_collision(t_game *game, char key);
 
 /*-------------------LOAD TEXTURES AND PLACE IMAGES--------------------------*/
 void				load_images(t_game *game);
-void				render_background(t_game *game);
 
 /*-------------------GAME OVER-----------------------------------------------*/
 void				game_over(char *msg);
@@ -171,7 +170,7 @@ void				bresenham(t_coord *point_1, t_coord *point_2,
 void				get_distance(t_game *game);
 void				find_shortest_distance(t_raycast *raycast);
 void				initialize_raycast(t_raycast *raycast, t_vector *vector,
-						double dist);
+						double *dist);
 void				norm_angle(double *angle);
 double				dist(int ax, int ay, int bx, int by);
 void	calculate_and_update_raycast(t_raycast *raycast,

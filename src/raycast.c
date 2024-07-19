@@ -23,14 +23,9 @@ void	get_distance(t_game *game)
 	raycast.ray_angle = game->player->angle - (DR * 30);
 	norm_angle(&raycast.ray_angle);
 	ray = 0;
-	while (ray < 20)
+	while (ray < 400)
 	{
 		calculate_and_update_raycast(&raycast, game, ray);
-		// if(ray == 10)
-		// {
-		// 	printf("ray: %d, rx: %f, ry: %f, angle: %f\n", ray, raycast.ray_pos.x,raycast.ray_pos.y, raycast.ray_angle);
-		// 	printf("distH %f, distV %f, dist: %f\n", raycast.horiz_dist, raycast.vert_dist, raycast.shortest_dist);
-		// }
 		ray++;
 	}
 }
@@ -50,13 +45,13 @@ void	find_shortest_distance(t_raycast *raycast)
 	}
 }
 
-void	initialize_raycast(t_raycast *raycast, t_vector *vector, double dist)
+void	initialize_raycast(t_raycast *raycast, t_vector *vector, double *dist)
 {
 	raycast->ray_pos.x = 0;
 	raycast->ray_pos.y = 0;
 	vector->x = 0;
 	vector->y = 0;
-	dist = HIGH_VALUE;
+	*dist = HIGH_VALUE;
 	raycast->map_x = 0;
 	raycast->map_y = 0;
 }

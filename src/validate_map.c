@@ -59,10 +59,8 @@ static void	check_boundaries(t_game *game, char *line, int row)
 
 void	check_data(t_game *game)
 {
-	char	**map;
 	t_scene	*scene_data;
 
-	map = game->map;
 	scene_data = game->scene_data;
 	if (scene_data->north != 1 || scene_data->south != 1
 		|| scene_data->west != 1 || scene_data->east != 1

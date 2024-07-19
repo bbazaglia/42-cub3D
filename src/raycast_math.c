@@ -14,18 +14,18 @@
 
 void	calculate_and_update_raycast(t_raycast *raycast, t_game *game, int ray)
 {
-	initialize_raycast(raycast, &raycast->horiz_hit, raycast->horiz_dist);
+	initialize_raycast(raycast, &raycast->horiz_hit, &raycast->horiz_dist);
 	raycast->tan = (-1) / tan(raycast->ray_angle);
 	find_horiz_ray_pos(raycast, game);
 	find_horiz_ray_limit(raycast, game);
-	initialize_raycast(raycast, &raycast->vert_hit, raycast->vert_dist);
+	initialize_raycast(raycast, &raycast->vert_hit, &raycast->vert_dist);
 	raycast->rev_tan = (-1) * tan(raycast->ray_angle);
 	find_vert_ray_pos(raycast, game);
 	find_vert_ray_limit(raycast, game);
 	find_shortest_distance(raycast);
 	print_ray(game, raycast);
 	draw_wall(raycast, game, ray);
-	raycast->ray_angle += (3 * DR);
+	raycast->ray_angle += (0.15 * DR);
 	norm_angle(&raycast->ray_angle);
 }
 
@@ -33,12 +33,12 @@ void	find_horiz_ray_pos(t_raycast *raycast, t_game *game)
 {
 	if (raycast->ray_angle == 0 || raycast->ray_angle == PI)
 	{
-		raycast->ray_pos.x = game->player->pos.x + game->width;
-		raycast->ray_pos.y = game->player->pos.y + game->height;
+		raycast->ray_pos.x = game->player->pos.x;
+		raycast->ray_pos.y = game->player->pos.y;
 	}
 	else if (raycast->ray_angle > PI) // looking up
 	{
-		raycast->ray_pos.y = (((int)game->player->pos.y >> BIT) << BIT);
+		raycast->ray_pos.y = (((int)game->player->pos.y >> BIT) << BIT) - 0.0001;
 		raycast->ray_pos.x = (game->player->pos.y - raycast->ray_pos.y)
 			* raycast->tan + game->player->pos.x;
 		raycast->step.y = -CELL;
@@ -56,12 +56,12 @@ void	find_horiz_ray_pos(t_raycast *raycast, t_game *game)
 
 void	find_vert_ray_pos(t_raycast *raycast, t_game *game)
 {
-	if (raycast->ray_angle > PI / 2 && raycast->ray_angle < 3 * PI / 2)
+	if ((raycast->ray_angle == (PI / 2)) || (raycast->ray_angle == 3 * (PI / 2)))
 	{
-		raycast->ray_pos.x = game->player->pos.x + game->width;
-		raycast->ray_pos.y = game->player->pos.y + game->height;
+		raycast->ray_pos.x = game->player->pos.x;
+		raycast->ray_pos.y = game->player->pos.y;
 	}
-	else if (raycast->ray_angle > PI / 2 && raycast->ray_angle < 3 * PI / 2) // looking left
+	else if (raycast->ray_angle > PI / 2 && raycast->ray_angle < 3 * (PI / 2)) // looking left
 	{
 		raycast->ray_pos.x = (((int)game->player->pos.x >> BIT) << BIT)
 			- 0.0001;
