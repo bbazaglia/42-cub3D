@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_math.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:44:05 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 09:23:00 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:41:52 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ looking down: raycast->ray_angle < PI
 void	find_horiz_ray_pos(t_raycast *raycast, t_game *game)
 {
 	if (compare_angles(raycast->ray_angle, 0)
-		|| compare_angles(raycast->ray_angle, PI))
+		|| compare_angles(raycast->ray_angle, PI)
+		|| compare_angles(raycast->ray_angle, PI_360))
 	{
 		raycast->ray_pos.x = game->player->pos.x;
 		raycast->ray_pos.y = game->player->pos.y;
@@ -94,7 +95,8 @@ void	find_vert_ray_pos(t_raycast *raycast, t_game *game)
 void	find_horiz_ray_limit(t_raycast *raycast, t_game *game)
 {
 	if (compare_angles(raycast->ray_angle, 0)
-		|| compare_angles(raycast->ray_angle, PI))
+		|| compare_angles(raycast->ray_angle, PI)
+		|| compare_angles(raycast->ray_angle, PI_360))
 	{
 		raycast->horiz_dist = HIGH_VALUE;
 		return ;
