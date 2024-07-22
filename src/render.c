@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:02:55 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 09:26:30 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:51:55 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_wall(t_raycast *raycast, t_game *game, int r)
 	{
 		color = texture_to_rgb(get_wall(game, raycast), \
 			texture_x_coord, texture_y_coord);
-		put_valid_pixel(game->mlx_image, r + 500, raycast->line_offset + y, \
+		put_valid_pixel(game->mlx_image, r, raycast->line_offset + y, \
 			color);
 		texture_y_coord += texture_y_step;
 		y++;
@@ -82,7 +82,7 @@ void	render_background(t_game *game)
 	size_t	x;
 	size_t	y;
 
-	x = 500;
+	x = 0;
 	while (x < WIDTH)
 	{
 		y = 0;

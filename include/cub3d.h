@@ -6,7 +6,7 @@
 /*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:02:04 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 15:50:50 by cogata           ###   ########.fr       */
+/*   Updated: 2024/07/22 16:59:38 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WIDTH 1300
+# define WIDTH 800
 # define HEIGHT 600
 # define CELL 16
 # define BIT 4
@@ -195,20 +195,13 @@ void				initialize_raycast(t_raycast *raycast, t_vector *vector,
 						double *dist);
 void				norm_angle(double *angle);
 double				dist(int ax, int ay, int bx, int by);
-void	calculate_and_update_raycast(t_raycast *raycast,
-									t_game *game,
-									int ray);
+void				calculate_and_update_raycast(t_raycast *raycast,
+						t_game *game, int ray);
 void				find_horiz_ray_pos(t_raycast *raycast, t_game *game);
 void				find_vert_ray_pos(t_raycast *raycast, t_game *game);
 void				find_horiz_ray_limit(t_raycast *raycast, t_game *game);
 void				find_vert_ray_limit(t_raycast *raycast, t_game *game);
 bool				compare_angles(double angle1, double angle2);
-
-/*-------------------MINIMAP-------------------------------------------------*/
-void				draw_player_square(t_game *game);
-void				draw_player_direction(t_game *game);
-void				print_ray(t_game *game, t_raycast *raycast);
-void				render_minimap(t_game *game);
 
 /*-------------------UTILS---------------------------------------------------*/
 bool				is_empty_line(char *line);

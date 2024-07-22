@@ -6,7 +6,7 @@
 /*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 10:59:50 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 15:50:37 by cogata           ###   ########.fr       */
+/*   Updated: 2024/07/22 17:02:29 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ int	main(int argc, char **argv)
 	safe_mlx_action(INIT, &game);
 	safe_mlx_action(NEW_IMAGE, &game);
 	load_images(&game);
-	render_minimap(&game);
 	get_distance(&game);
 	safe_mlx_action(IMAGE_TO_WINDOW, &game);
 	mlx_loop_hook(game.mlx, ft_hook, &game);
 	mlx_loop(game.mlx);
 	end_mlx(&game);
-	game_over("END");
+	game_over("BYE!");
 	return (EXIT_SUCCESS);
 }

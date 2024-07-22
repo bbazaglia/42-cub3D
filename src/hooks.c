@@ -6,7 +6,7 @@
 /*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:39:51 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 15:53:09 by cogata           ###   ########.fr       */
+/*   Updated: 2024/07/22 16:58:22 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_hook(void *param)
 	mlx_delete_image(game->mlx, game->mlx_image);
 	game->mlx_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game->mlx, game->mlx_image, 0, 0);
-	render_minimap(game);
 	get_distance(game);
 }
 

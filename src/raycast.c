@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:41:00 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 09:30:07 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:58:35 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	get_distance(t_game *game)
 	t_raycast	raycast;
 	int			ray;
 
-	draw_player_square(game);
-	draw_player_direction(game);
 	render_background(game);
 	raycast.ray_angle = game->player->angle - (CONV_DEG_TO_RAD * 30);
 	norm_angle(&raycast.ray_angle);

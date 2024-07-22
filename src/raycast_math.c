@@ -6,7 +6,7 @@
 /*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:44:05 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 14:41:52 by cogata           ###   ########.fr       */
+/*   Updated: 2024/07/22 16:58:30 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	calculate_and_update_raycast(t_raycast *raycast, t_game *game, int ray)
 	find_vert_ray_pos(raycast, game);
 	find_vert_ray_limit(raycast, game);
 	find_shortest_distance(raycast);
-	print_ray(game, raycast);
 	draw_wall(raycast, game, ray);
 	raycast->ray_angle += (0.075 * CONV_DEG_TO_RAD);
 	norm_angle(&raycast->ray_angle);

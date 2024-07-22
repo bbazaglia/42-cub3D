@@ -6,7 +6,7 @@
 #    By: cogata <cogata@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/22 16:07:56 by cogata           ###   ########.fr        #
+#    Updated: 2024/07/22 17:01:12 by cogata           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ SRC = main.c \
 	  hooks_utils.c \
       game_over.c \
 	  render.c \
-	  minimap.c \
 	  raycast.c \
 	  raycast_math.c \
 	  bresenham.c \
