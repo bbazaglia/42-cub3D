@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/22 09:27:00 by bbazagli          #+#    #+#             */
+/*   Updated: 2024/07/22 09:27:01 by bbazagli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool check_collision(t_game *game, double x, double y)
+bool	check_collision(t_game *game, double x, double y)
 {
-	size_t mx;
-	size_t my;
+	size_t	mx;
+	size_t	my;
 
 	mx = abs((int)(x) >> BIT);
 	my = abs((int)(y) >> BIT);
@@ -13,11 +24,11 @@ bool check_collision(t_game *game, double x, double y)
 	return (true);
 }
 
-void move_key_w(t_game *game)
+void	move_key_w(t_game *game)
 {
-	double x;
-	double y;
-	bool collision;
+	double	x;
+	double	y;
+	bool	collision;
 
 	x = game->player->pos.x + game->player->delta.x;
 	y = game->player->pos.y + game->player->delta.y;
@@ -31,11 +42,11 @@ void move_key_w(t_game *game)
 	}
 }
 
-void move_key_s(t_game *game)
+void	move_key_s(t_game *game)
 {
-	double x;
-	double y;
-	bool collision;
+	double	x;
+	double	y;
+	bool	collision;
 
 	x = game->player->pos.x - game->player->delta.x;
 	y = game->player->pos.y - game->player->delta.y;
@@ -49,11 +60,11 @@ void move_key_s(t_game *game)
 	}
 }
 
-void move_key_a(t_game *game)
+void	move_key_a(t_game *game)
 {
-	double x;
-	double y;
-	bool collision;
+	double	x;
+	double	y;
+	bool	collision;
 
 	x = game->player->pos.x - 1.5;
 	y = game->player->pos.y;
@@ -64,11 +75,11 @@ void move_key_a(t_game *game)
 	}
 }
 
-void move_key_d(t_game *game)
+void	move_key_d(t_game *game)
 {
-	double x;
-	double y;
-	bool collision;
+	double	x;
+	double	y;
+	bool	collision;
 
 	x = game->player->pos.x + 1.5;
 	y = game->player->pos.y;

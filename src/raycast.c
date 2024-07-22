@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: string <string>                            +#+  +:+       +#+        */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:41:00 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 16:30:21 by string           ###   ########.fr       */
+/*   Updated: 2024/07/22 09:30:07 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	get_distance(t_game *game)
 {
 	t_raycast	raycast;
 	int			ray;
-	
+
 	draw_player_square(game);
 	draw_player_direction(game);
 	render_background(game);

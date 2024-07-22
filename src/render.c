@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: string <string>                            +#+  +:+       +#+        */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:02:55 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 16:30:10 by string           ###   ########.fr       */
+/*   Updated: 2024/07/22 09:26:30 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	set_wall_attributes(t_raycast *raycast, t_game *game)
 {
 	raycast->corrected_angle = game->player->angle - raycast->ray_angle;
 	norm_angle(&raycast->corrected_angle);
-	raycast->shortest_dist = cos(raycast->corrected_angle) \
+	raycast->shortest_dist = cos(raycast->corrected_angle)
 		* raycast->shortest_dist;
 	raycast->line_height = (HEIGHT * CELL) / raycast->shortest_dist;
 	raycast->line_offset = (HEIGHT - raycast->line_height) / 2;
@@ -65,14 +65,13 @@ void	draw_wall(t_raycast *raycast, t_game *game, int r)
 	else
 		texture_x_coord = (int)(raycast->shortest_hit.y \
 		* (game->tex_height / CELL)) % game->tex_height;
-	
 	y = 0;
 	while (y < raycast->line_height)
 	{
 		color = texture_to_rgb(get_wall(game, raycast), \
 			texture_x_coord, texture_y_coord);
-		put_valid_pixel(game->mlx_image, r + 500, \
-			raycast->line_offset + y, color);
+		put_valid_pixel(game->mlx_image, r + 500, raycast->line_offset + y, \
+			color);
 		texture_y_coord += texture_y_step;
 		y++;
 	}

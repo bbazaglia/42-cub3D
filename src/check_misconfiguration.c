@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:03:07 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/17 13:05:41 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 09:29:20 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,11 @@ static int	check_line(char **line, t_game *game, t_scene *scene_data, int row)
 	else if (!ft_strncmp(line[0], "EA", 2))
 		check_path(line[1], &scene_data->east, &scene_data->east_path);
 	else if (!ft_strncmp(line[0], "F", 1))
-		check_rgb(game->scene[row], &scene_data->floor, &scene_data->floor_color);
+		check_rgb(game->scene[row], &scene_data->floor, \
+		&scene_data->floor_color);
 	else if (!ft_strncmp(line[0], "C", 1))
-		check_rgb(game->scene[row], &scene_data->ceiling, &scene_data->ceiling_color);
+		check_rgb(game->scene[row], &scene_data->ceiling, \
+		&scene_data->ceiling_color);
 	else
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:43:33 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/17 13:06:17 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 09:28:01 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,6 @@ void	check_data(t_game *game)
 		|| scene_data->west != 1 || scene_data->east != 1
 		|| scene_data->floor != 1 || scene_data->ceiling != 1)
 		game_over("Error: Wrong amount of textures\n");
-}
-
-void	check_player(t_game *game)
-{
-	char	**map;
-
-	map = game->map;
-	if (game->scene_data->player_count != 1)
-		game_over("Error: Incorrect number of players in the map\n");
-	if (game->player->map_x_coord != -1 && game->player->map_y_coord != -1)
-		map[game->player->map_y_coord][game->player->map_x_coord] = '0';
-	else
-		game_over("Error: Player's starting position not found\n");
 }
 
 void	validate_map(t_game *game)

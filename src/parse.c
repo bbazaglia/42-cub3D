@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:41:37 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/17 13:00:21 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 09:21:33 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	read_scene(t_game *game, char *argv)
 	int	fd;
 	int	row;
 	int	len;
-	
+
 	init_data(game);
 	get_num_lines(argv, game->scene_data);
 	game->scene = allocate_mem(game->scene_data->size + 1, sizeof(char *));

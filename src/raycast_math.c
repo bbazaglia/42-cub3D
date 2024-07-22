@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_math.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: string <string>                            +#+  +:+       +#+        */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:44:05 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 16:29:26 by string           ###   ########.fr       */
+/*   Updated: 2024/07/22 09:23:00 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,33 @@ void	calculate_and_update_raycast(t_raycast *raycast, t_game *game, int ray)
 	find_vert_ray_limit(raycast, game);
 	find_shortest_distance(raycast);
 	print_ray(game, raycast);
-	
-	
 	draw_wall(raycast, game, ray);
 	raycast->ray_angle += (0.075 * CONV_DEG_TO_RAD);
 	norm_angle(&raycast->ray_angle);
 }
 
+/*
+looking up: raycast->ray_angle > PI
+looking down: raycast->ray_angle < PI
+*/
 void	find_horiz_ray_pos(t_raycast *raycast, t_game *game)
 {
-	if(compare_angles(raycast->ray_angle, 0) || compare_angles(raycast->ray_angle, PI))
+	if (compare_angles(raycast->ray_angle, 0)
+		|| compare_angles(raycast->ray_angle, PI))
 	{
 		raycast->ray_pos.x = game->player->pos.x;
 		raycast->ray_pos.y = game->player->pos.y;
 	}
-	else if (raycast->ray_angle > PI) // looking up
+	else if (raycast->ray_angle > PI)
 	{
-		raycast->ray_pos.y = (((int)game->player->pos.y >> BIT) << BIT) - 0.0001;
+		raycast->ray_pos.y = (((int)game->player->pos.y >> BIT) << BIT)
+			- 0.0001;
 		raycast->ray_pos.x = (game->player->pos.y - raycast->ray_pos.y)
 			* raycast->tan + game->player->pos.x;
 		raycast->step.y = -CELL;
 		raycast->step.x = (-raycast->step.y) * raycast->tan;
 	}
-	else if (raycast->ray_angle < PI) // looking down
+	else if (raycast->ray_angle < PI)
 	{
 		raycast->ray_pos.y = (((int)game->player->pos.y >> BIT) << BIT) + CELL;
 		raycast->ray_pos.x = (game->player->pos.y - raycast->ray_pos.y)
@@ -56,14 +60,19 @@ void	find_horiz_ray_pos(t_raycast *raycast, t_game *game)
 	}
 }
 
+/*
+looking left: raycast->ray_angle > PI_90 && raycast->ray_angle < PI_270
+looking right: raycast->ray_angle < PI_90 || raycast->ray_angle > PI_270
+*/
 void	find_vert_ray_pos(t_raycast *raycast, t_game *game)
 {
-	if(compare_angles(raycast->ray_angle, PI_90) || compare_angles(raycast->ray_angle, PI_270))
+	if (compare_angles(raycast->ray_angle, PI_90)
+		|| compare_angles(raycast->ray_angle, PI_270))
 	{
 		raycast->ray_pos.x = game->player->pos.x;
 		raycast->ray_pos.y = game->player->pos.y;
 	}
-	else if (raycast->ray_angle > PI_90 && raycast->ray_angle < PI_270) // looking left
+	else if (raycast->ray_angle > PI_90 && raycast->ray_angle < PI_270)
 	{
 		raycast->ray_pos.x = (((int)game->player->pos.x >> BIT) << BIT)
 			- 0.0001;
@@ -72,7 +81,7 @@ void	find_vert_ray_pos(t_raycast *raycast, t_game *game)
 		raycast->step.x = -CELL;
 		raycast->step.y = (-raycast->step.x) * raycast->rev_tan;
 	}
-	else if (raycast->ray_angle < PI_90 || raycast->ray_angle > PI_270) // looking right
+	else if (raycast->ray_angle < PI_90 || raycast->ray_angle > PI_270)
 	{
 		raycast->ray_pos.x = (((int)game->player->pos.x >> BIT) << BIT) + CELL;
 		raycast->ray_pos.y = (game->player->pos.x - raycast->ray_pos.x)
@@ -84,7 +93,8 @@ void	find_vert_ray_pos(t_raycast *raycast, t_game *game)
 
 void	find_horiz_ray_limit(t_raycast *raycast, t_game *game)
 {
-	if(compare_angles(raycast->ray_angle, 0) || compare_angles(raycast->ray_angle, PI))
+	if (compare_angles(raycast->ray_angle, 0)
+		|| compare_angles(raycast->ray_angle, PI))
 	{
 		raycast->horiz_dist = HIGH_VALUE;
 		return ;
@@ -107,7 +117,8 @@ void	find_horiz_ray_limit(t_raycast *raycast, t_game *game)
 
 void	find_vert_ray_limit(t_raycast *raycast, t_game *game)
 {
-	if(compare_angles(raycast->ray_angle, PI_90) || compare_angles(raycast->ray_angle, PI_270))
+	if (compare_angles(raycast->ray_angle, PI_90)
+		|| compare_angles(raycast->ray_angle, PI_270))
 	{
 		raycast->vert_dist = HIGH_VALUE;
 		return ;

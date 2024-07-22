@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: string <string>                            +#+  +:+       +#+        */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:39:35 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 16:28:00 by string           ###   ########.fr       */
+/*   Updated: 2024/07/22 09:28:13 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ void	init_player(t_game *game, char **map)
 		y++;
 	}
 	check_player(game);
+}
+
+void	check_player(t_game *game)
+{
+	char	**map;
+
+	map = game->map;
+	if (game->scene_data->player_count != 1)
+		game_over("Error: Incorrect number of players in the map\n");
+	if (game->player->map_x_coord != -1 && game->player->map_y_coord != -1)
+		map[game->player->map_y_coord][game->player->map_x_coord] = '0';
+	else
+		game_over("Error: Player's starting position not found\n");
 }
 
 void	init_data(t_game *game)

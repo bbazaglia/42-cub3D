@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: string <string>                            +#+  +:+       +#+        */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:39:51 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 18:12:52 by string           ###   ########.fr       */
+/*   Updated: 2024/07/22 09:42:52 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void hook(mlx_key_data_t keydata, void *param)
+void	hook(mlx_key_data_t keydata, void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = param;
 	if (keydata.action == MLX_PRESS)
@@ -33,8 +33,6 @@ void hook(mlx_key_data_t keydata, void *param)
 			move_key_a(game);
 		if (keydata.key == MLX_KEY_D)
 			move_key_d(game);
-		// if (game->player_image)
-		// 	mlx_delete_image(game->mlx, game->player_image);
 		mlx_delete_image(game->mlx, game->mlx_image);
 		game->mlx_image = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 		mlx_image_to_window(game->mlx, game->mlx_image, 0, 0);
@@ -43,13 +41,13 @@ void hook(mlx_key_data_t keydata, void *param)
 	}
 }
 
-void close_window(t_game *game)
+void	close_window(t_game *game)
 {
 	end_mlx(game);
 	game_over("Game Over");
 }
 
-void rotate_key_left(t_game *game)
+void	rotate_key_left(t_game *game)
 {
 	game->player->angle -= 0.1;
 	if (game->player->angle < 0)
@@ -58,7 +56,7 @@ void rotate_key_left(t_game *game)
 	game->player->delta.y = sin(game->player->angle) * 5;
 }
 
-void rotate_key_right(t_game *game)
+void	rotate_key_right(t_game *game)
 {
 	game->player->angle += 0.1;
 	if (game->player->angle > PI_360)
@@ -66,4 +64,3 @@ void rotate_key_right(t_game *game)
 	game->player->delta.x = cos(game->player->angle) * 5;
 	game->player->delta.y = sin(game->player->angle) * 5;
 }
-

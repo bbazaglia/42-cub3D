@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: string <string>                            +#+  +:+       +#+        */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:46:23 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/19 17:28:26 by string           ###   ########.fr       */
+/*   Updated: 2024/07/22 09:21:04 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,15 @@ void	print_ray(t_game *game, t_raycast *raycast)
 	t_coord	ray_end;
 
 	ray_start.x = game->player->pos.x;
-    ray_start.y = game->player->pos.y;
-    ray_start.color = 0xFF0000FF;
-    ray_end.x = raycast->shortest_hit.x;
-    ray_end.y = raycast->shortest_hit.y;
-    ray_end.color = 0xFF0000FF;
-    bresenham(&ray_start, &ray_end, game->mlx_image);
+	ray_start.y = game->player->pos.y;
+	ray_start.color = 0xFF0000FF;
+	ray_end.x = raycast->shortest_hit.x;
+	ray_end.y = raycast->shortest_hit.y;
+	ray_end.color = 0xFF0000FF;
+	bresenham(&ray_start, &ray_end, game->mlx_image);
 }
 
-static void	color_minimap(t_coord *start, t_coord *end, char map,
-		t_game *game)
+static void	color_minimap(t_coord *start, t_coord *end, char map, t_game *game)
 {
 	if (map == '1')
 	{
@@ -97,5 +96,3 @@ void	render_minimap(t_game *game)
 		i++;
 	}
 }
-
-
