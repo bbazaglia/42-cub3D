@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:39:35 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 12:01:18 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:57:57 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,6 @@ void	init_pos(t_game *game)
 		game->player->angle = PI;
 	game->player->pos.x = (game->player->map_x_coord * CELL) + (CELL / 2);
 	game->player->pos.y = (game->player->map_y_coord * CELL) + (CELL / 2);
+	game->player->delta.x = cos(game->player->angle) * 1;
+	game->player->delta.y = sin(game->player->angle) * 1;
 }

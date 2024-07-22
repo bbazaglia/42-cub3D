@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:02:04 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 12:02:32 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:50:50 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define BIT 4
 # define CONV_DEG_TO_RAD 0.0174533
 # define HIGH_VALUE 1000000
-# define PRECISION 1e-9
+# define PRECISION 1e-5
 # define PI 3.141592653589793
 # define PI_90 1.570796326794897
 # define PI_270 4.712388980384690
@@ -158,7 +158,7 @@ void				init_pos(t_game *game);
 
 /*-------------------HOOKS AND MOVES-----------------------------------------*/
 void				close_window(t_game *game);
-void				hook(mlx_key_data_t keydata, void *param);
+void				ft_hook(void *param);
 void				rotate_key_left(t_game *game);
 void				rotate_key_right(t_game *game);
 bool				check_collision(t_game *game, double x, double y);
@@ -195,8 +195,9 @@ void				initialize_raycast(t_raycast *raycast, t_vector *vector,
 						double *dist);
 void				norm_angle(double *angle);
 double				dist(int ax, int ay, int bx, int by);
-void				calculate_and_update_raycast(t_raycast *raycast,
-						t_game *game, int ray);
+void	calculate_and_update_raycast(t_raycast *raycast,
+									t_game *game,
+									int ray);
 void				find_horiz_ray_pos(t_raycast *raycast, t_game *game);
 void				find_vert_ray_pos(t_raycast *raycast, t_game *game);
 void				find_horiz_ray_limit(t_raycast *raycast, t_game *game);
