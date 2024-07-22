@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: string <string>                            +#+  +:+       +#+         #
+#    By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/19 16:49:56 by string           ###   ########.fr        #
+#    Updated: 2024/07/22 12:09:34 by bbazagli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ $(OBJ)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<)\n"
 
 val: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/validmap.cub
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/valid/subject.cub
 
 clean:
 	@make -C ./LIBFT clean --silent

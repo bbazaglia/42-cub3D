@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:41:37 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 09:21:33 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:58:12 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	read_scene(t_game *game, char *argv)
 	game->scene = allocate_mem(game->scene_data->size + 1, sizeof(char *));
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		game_over("Error: Error opening .cub file\n");
+		game_over("Error: Error opening .cub file");
 	row = 0;
 	while (row < game->scene_data->size)
 	{
 		game->scene[row] = get_next_line(fd);
 		collect_mem(game->scene[row]);
 		if (game->scene[row] == NULL)
-			game_over("Error: Failed to read line\n");
+			game_over("Error: Failed to read line");
 		len = ft_strlen(game->scene[row]);
 		if (len > 0 && game->scene[row][len - 1] == '\n')
 			game->scene[row][len - 1] = '\0';
@@ -68,7 +68,7 @@ void	read_map(t_game *game, int row)
 	{
 		game->map[i] = game->scene[row];
 		if (is_empty_line(game->map[i]))
-			game_over("Error: Empty line in the map\n");
+			game_over("Error: Empty line in the map");
 		if (ft_strlen(game->map[i]) > game->width)
 			game->width = ft_strlen(game->map[i]);
 		i++;
@@ -86,7 +86,7 @@ void	get_num_lines(char *argv, t_scene *scene_data)
 	scene_data->size = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		game_over("Error: Error opening the map file\n");
+		game_over("Error: Error opening the map file");
 	num_lines = 0;
 	while (1)
 	{

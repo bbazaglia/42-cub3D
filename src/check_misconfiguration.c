@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:03:07 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 09:29:20 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:56:59 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	check_path(char *line, int *path_count, char **path)
 {
 	*path_count = *path_count + 1;
 	if (open(line, O_RDONLY) == -1)
-		game_over("Error: Invalid texture path\n");
+		game_over("Error: Invalid texture path");
 	*path = ft_strdup(line);
 }
 
@@ -36,7 +36,7 @@ static char	**get_colors(char *line, int *color_count)
 		i++;
 	}
 	if (i > 3)
-		game_over("Error: Invalid color texture\n");
+		game_over("Error: Invalid color texture");
 	return (rgb);
 }
 
@@ -55,15 +55,12 @@ static void	check_rgb(char *line, int *color_count, uint32_t *color)
 		while (rgb[i][j])
 		{
 			if (!ft_isdigit(rgb[i][j]))
-			{
-				printf("rgb[i][j]: %d\n", rgb[i][j]);
-				game_over("Error: Invalid color texture\n");
-			}
+				game_over("Error: Invalid color texture");
 			j++;
 		}
 		valid_color = ft_atoi(rgb[i]);
 		if (valid_color < 0 || valid_color > 255)
-			game_over("Error: Invalid color texture\n");
+			game_over("Error: Invalid color texture");
 		i++;
 	}
 	*color = ft_pixel(ft_atoi(rgb[0]), ft_atoi(rgb[1]), ft_atoi(rgb[2]), 255);

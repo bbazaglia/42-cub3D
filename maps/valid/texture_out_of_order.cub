@@ -1,9 +1,9 @@
-NO ./textures/1wall.png
-SO ./textures/2wall.png
-WE ./textures/3wall.png
 EA ./textures/4wall.png
-F 124, 181, 80
-C 160, 222, 235
+SO ./textures/2wall.png
+NO ./textures/1wall.png
+WE ./textures/3wall.png
+F 79, 121, 66
+C 137, 207, 240
 11111111111111111111
 10000010000000000001
 10000010000000000001
