@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 13:37:31 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 09:43:48 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/22 13:30:24 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	game_over(char *msg)
 		exit_code = EXIT_FAILURE;
 	}
 	free_mem(get_mem_address());
+	get_next_line(-1);
 	exit(exit_code);
 }
 
