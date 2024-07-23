@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cogata <cogata@student.42.fr>              +#+  +:+       +#+         #
+#    By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/23 10:53:18 by cogata           ###   ########.fr        #
+#    Updated: 2024/07/23 11:16:20 by bbazagli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(OBJ)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<)\n"
 
 val: $(NAME) libft libmlx
-	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/valid/subject.cub
+	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/invalid/empty_line.cub
 
 build_mlx:
 ifeq (,$(wildcard ./MLX42/build/libmlx42.a))

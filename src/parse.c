@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 09:41:37 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 11:58:12 by bbazagli         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:15:51 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	get_num_lines(char *argv, t_scene *scene_data)
 	}
 	close(fd);
 	scene_data->size = num_lines;
+	if (scene_data->size == 0)
+		game_over("Error: The file is empty");
 }
 
 char	*fill_spaces(char *cur_line, t_game *game)
