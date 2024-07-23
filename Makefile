@@ -6,7 +6,7 @@
 #    By: cogata <cogata@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/22 17:01:12 by cogata           ###   ########.fr        #
+#    Updated: 2024/07/23 10:26:46 by cogata           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,20 @@ $(OBJ)/%.o: %.c
 	@mkdir -p $(OBJ)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE) && printf "Compiling: $(notdir $<)\n"
 
-val: $(NAME)
+val: $(NAME) libft libmlx
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=suppress_mlx.sup ./cub3D ./maps/valid/subject.cub
+
+build_mlx:
+ifeq (,$(wildcard ./MLX42/build/libmlx42.a))
+	git clone https://github.com/codam-coding-college/MLX42.git && \
+	cd MLX42 && \
+	sed -i 's/cmake_minimum_required (VERSION 3.18.0)/cmake_minimum_required (VERSION 3.16.0)/g' CMakeLists.txt && \
+	if ! cmake -B build; then \
+		echo "Failed to configure MLX42"; \
+	else \
+		cmake --build build -j4; \
+	fi
+endif
 
 clean:
 	@make -C ./LIBFT clean --silent

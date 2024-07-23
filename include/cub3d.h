@@ -6,7 +6,7 @@
 /*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:02:04 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 16:59:38 by cogata           ###   ########.fr       */
+/*   Updated: 2024/07/23 09:33:30 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void				bresenham(t_coord *point_1, t_coord *point_2,
 						mlx_image_t *mlx_image);
 
 /*-------------------RAYCAST-------------------------------------------------*/
-void				get_distance(t_game *game);
+void				raycast(t_game *game);
 void				find_shortest_distance(t_raycast *raycast);
 void				initialize_raycast(t_raycast *raycast, t_vector *vector,
 						double *dist);

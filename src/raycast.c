@@ -6,13 +6,13 @@
 /*   By: cogata <cogata@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 09:41:00 by bbazagli          #+#    #+#             */
-/*   Updated: 2024/07/22 16:58:35 by cogata           ###   ########.fr       */
+/*   Updated: 2024/07/23 09:33:30 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_distance(t_game *game)
+void	raycast(t_game *game)
 {
 	t_raycast	raycast;
 	int			ray;
