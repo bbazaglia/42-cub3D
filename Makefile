@@ -6,7 +6,7 @@
 #    By: cogata <cogata@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/03 10:58:08 by bbazagli          #+#    #+#              #
-#    Updated: 2024/07/23 10:26:46 by cogata           ###   ########.fr        #
+#    Updated: 2024/07/23 10:53:18 by cogata           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra
 
 LIBS = ./MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 
