@@ -2,6 +2,10 @@
 	🎲 cub3D
 </h1>
 
+<p align="center">
+  <img src="gamescreenshot.png" alt="cub3D" width="600" />
+</p>
+
 ## 💡 About the project
 
 This project is inspired by the world-famous Wolfenstein 3D game, which was the first "First Person Shooter" ever. 
